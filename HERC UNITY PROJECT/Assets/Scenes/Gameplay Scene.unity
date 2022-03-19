@@ -285,8 +285,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 1
+  dashCD: 0
+  attackCD: 0
   lookDirection: 
   moveVector: {x: 0, y: 0}
+  slashHitbox: {fileID: 3862490131205147635, guid: 5d73f6623a8014c459d28bf99d7ad4dd, type: 3}
 --- !u!1 &2050291558
 GameObject:
   m_ObjectHideFlags: 0
