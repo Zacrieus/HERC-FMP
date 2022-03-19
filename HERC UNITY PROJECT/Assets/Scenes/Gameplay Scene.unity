@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 63245927}
   - component: {fileID: 63245926}
   - component: {fileID: 63245925}
+  - component: {fileID: 63245930}
   m_Layer: 0
   m_Name: Herc
   m_TagString: Untagged
@@ -197,12 +198,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 63245924}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 614f547f367ab3f49aba45cbf59dee4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 0
+  moveSpeed: 1
+  PriortizeVerticalOverHorizontal: 0
   lookDirection: 
   slashHitbox: {fileID: 3862490131205147635, guid: 5d73f6623a8014c459d28bf99d7ad4dd, type: 3}
 --- !u!212 &63245928
@@ -270,6 +272,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &63245930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 63245924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d69b54dab6b89934aab872a9f12d1e13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 1
+  lookDirection: 
+  moveVector: {x: 0, y: 0}
 --- !u!1 &2050291558
 GameObject:
   m_ObjectHideFlags: 0

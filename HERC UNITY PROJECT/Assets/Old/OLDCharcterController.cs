@@ -7,6 +7,7 @@ public class CharacterController : MonoBehaviour
 
     [Header("Settings")]
     public float moveSpeed;
+    public bool PriortizeVerticalOverHorizontal;
 
     [Header("Setup")]
     public string lookDirection;
@@ -46,7 +47,7 @@ public class CharacterController : MonoBehaviour
         { moveX = +1f; }
         */
 
-        moveVector = new Vector2(moveX, moveY).normalized;
+        moveVector = new Vector2(moveX , moveY).normalized;
 
         Debug.Log(moveVector +" + "+ lastVector );
    
@@ -72,7 +73,16 @@ public class CharacterController : MonoBehaviour
 
    
 
+
             Object.Destroy(hitbox, 1);
+
+
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            //GameObject hitbox;
+            Debug.Log("Attack");
 
 
         }
@@ -81,7 +91,7 @@ public class CharacterController : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        rb.velocity = moveVector;
+        rb.MovePosition(rb.position + moveVector * moveSpeed * Time.fixedDeltaTime);
         if (moveVector != new Vector2(0, 0))
         { lastVector = moveVector; }
     }
@@ -100,21 +110,55 @@ public class CharacterController : MonoBehaviour
 
     void LookDirection()
     {
-        if (moveVector == new Vector2(-1, -1))
+        if (Input.GetKeyDown(KeyCode.W))
+        { lookDirection = "Up"; }
+        if (Input.GetKeyDown(KeyCode.S))
+        { lookDirection = "Down"; }
+        if (Input.GetKeyDown(KeyCode.A))
         { lookDirection = "Left"; }
-        if (moveVector == new Vector2(-1, 0))
-        { lookDirection = "Left"; }
-        if (moveVector == new Vector2(-1, 1))
-        { lookDirection = "Left"; }
+        if (Input.GetKeyDown(KeyCode.D))
+        { lookDirection = "Right"; }
+    }
+
+
+void LookDirectionOld()
+    {
         if (moveVector == new Vector2(0, -1))
         { lookDirection = "Down"; }
         if (moveVector == new Vector2(0, 1))
         { lookDirection = "Up"; }
-        if (moveVector == new Vector2(1, -1))
-        { lookDirection = "Right"; }
         if (moveVector == new Vector2(1, 0))
         { lookDirection = "Right"; }
+        if (moveVector == new Vector2(-1, 0))
+        { lookDirection = "Left"; }
+
+        if (moveVector == new Vector2(-1, -1))
+        {
+            if (PriortizeVerticalOverHorizontal == true)
+            { lookDirection = "Down"; }
+            else
+            {lookDirection = "Left";}
+        }
+        if (moveVector == new Vector2(-1, 1))
+        {
+            if (PriortizeVerticalOverHorizontal == true)
+            { lookDirection = "Up"; }
+            else
+            { lookDirection = "Left"; }
+        }
+        if (moveVector == new Vector2(1, -1))
+        {
+            if (PriortizeVerticalOverHorizontal == true)
+            { lookDirection = "Down"; }
+            else
+            { lookDirection = "Right"; }
+        }
         if (moveVector == new Vector2(1, 1))
-        { lookDirection = "Right"; }
+        {
+            if (PriortizeVerticalOverHorizontal == true)
+            { lookDirection = "Up"; }
+            else
+            { lookDirection = "Right"; }
+        }
     }
 }
