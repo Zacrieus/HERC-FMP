@@ -102,13 +102,14 @@ public class Character : MonoBehaviour
             {
                 //need to rotate object in right direction but lazy
                 if (lookDirection == "Up")
-                { hitbox = Instantiate(slashHitbox, transform.position + new Vector3(0, slashHitbox.transform.localScale.y * transform.localScale.y, 0), Quaternion.identity); }
+                { hitbox = Instantiate(slashHitbox, transform.position + new Vector3(0, slashHitbox.transform.localScale.y * transform.localScale.y, 0), Quaternion.identity,transform); }
                 else if (lookDirection == "Down")
-                { hitbox = Instantiate(slashHitbox, transform.position + new Vector3(0, -slashHitbox.transform.localScale.y * transform.localScale.y, 0), Quaternion.identity); }
+                { hitbox = Instantiate(slashHitbox, transform.position + new Vector3(0, -slashHitbox.transform.localScale.y * transform.localScale.y, 0), Quaternion.identity,transform); }
                 if (lookDirection == "Right")
-                { hitbox = Instantiate(slashHitbox, transform.position + new Vector3(slashHitbox.transform.localScale.x * transform.localScale.x, 0, 0), Quaternion.identity);  }
+                { hitbox = Instantiate(slashHitbox, transform.position + new Vector3(slashHitbox.transform.localScale.x * transform.localScale.y, 0, 0), Quaternion.identity,transform);  }
                 else if (lookDirection == "Left")
-                { hitbox = Instantiate(slashHitbox, transform.position + new Vector3(-slashHitbox.transform.localScale.x * transform.localScale.x, 0, 0), Quaternion.identity);  }
+                { hitbox = Instantiate(slashHitbox, transform.position + new Vector3(-slashHitbox.transform.localScale.x * transform.localScale.y, 0, 0), Quaternion.identity,transform);  }
+
 
                 //hitbox.transform.lo
                 canAttack = false;
@@ -151,7 +152,6 @@ public class Character : MonoBehaviour
 
     void FixedUpdate()
     {
-
         moveVector = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         moveVector = moveVector.normalized;
 
