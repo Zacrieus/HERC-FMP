@@ -4,37 +4,38 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
+    [Header("Stats")]
+    [Range(0, 5)] public float health;
+    [Range(0, 5)] public float moveSpeed;
+    public string lookDirection = "Up";
+
     [Header("General Settings")]
-    public float setMoveSpeed;
-    public float setHealth;
+    [Range(0, 5)] public float setMoveSpeed;
+    [Range(0, 5)] public float setHealth;
 
-    [Header("Dash Settings")]
-    [SerializeField] float dashCD;
-    [SerializeField] float dashSpeed;
-    [SerializeField] float dashDuration;
-
-    [Header("Attack Settings")]
-    [SerializeField] float attackCD;
-    [SerializeField] float attackUpTime;
-    [SerializeField] float attackDamage;
-    //public bool PriortizeVerticalOverHorizontal;
-
-    [Header("Setup (IGNORE)")]
-    [SerializeField] Animator animator;
-    string currentState;
-    public float health;
-    public string lookDirection = "Up"; //1 = Up/W    2=Down/S      3=Left/A      4=Right/D
-    public bool isMoving = false;
-    public Vector2 moveVector;
-    public GameObject slashHitbox;
-
-    float moveSpeed;
+    [Header("Dash Setup")]
+    [SerializeField] [Range(0,5)] float dashCD;
+    [SerializeField] [Range(1, 25)] float dashSpeed;
+    [SerializeField] [Range(0, 5)] float dashDuration;
     float dashtimer = 0f;
     bool canDash = true;
-    
+
+    [Header("Attack Setup")]
+    [SerializeField] [Range(0, 5)] float attackCD;
+    [SerializeField] [Range(0, 5)] float attackUpTime;
+    [SerializeField] [Range(0, 5)] float attackDamage;
     float attackTimer;
     bool canAttack = true;
+    //public bool PriortizeVerticalOverHorizontal;
 
+
+
+    [Header("Setup (IGNORE)")]
+    Animator animator;
+    string currentState;
+    [HideInInspector] public bool isMoving = false;
+    public Vector2 moveVector;
+    [HideInInspector] public GameObject slashHitbox;
 
     Rigidbody2D rb;
     GameObject hitbox;
@@ -44,6 +45,7 @@ public class Character : MonoBehaviour
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         moveSpeed = setMoveSpeed;
+        health = setHealth;
     }
 
     // Update is called once per frame
@@ -167,4 +169,8 @@ public class Character : MonoBehaviour
 
         currentState = newState;
     }
+
+    //sending variables
+    public bool IsMoving()
+    {return isMoving;}
 }
