@@ -44,6 +44,7 @@ public class Character : MonoBehaviour
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
+        animator = gameObject.GetComponentInChildren<Animator>();
         moveSpeed = setMoveSpeed;
         health = setHealth;
     }

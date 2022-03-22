@@ -263,7 +263,7 @@ Transform:
   m_GameObject: {fileID: 63245924}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -0.60897}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 0.63}
+  m_LocalScale: {x: 1, y: 1, z: 0.63}
   m_Children:
   - {fileID: 2050291561}
   - {fileID: 1896026648}
@@ -282,6 +282,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d69b54dab6b89934aab872a9f12d1e13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 0
+  moveSpeed: 0
+  lookDirection: 
   setMoveSpeed: 3
   setHealth: 6
   dashCD: 1
@@ -290,9 +293,6 @@ MonoBehaviour:
   attackCD: 0.75
   attackUpTime: 0.5
   attackDamage: 1
-  animator: {fileID: 1896026650}
-  health: 0
-  lookDirection: 
   isMoving: 0
   moveVector: {x: 0, y: 0}
   slashHitbox: {fileID: 3862490131205147635, guid: 5d73f6623a8014c459d28bf99d7ad4dd, type: 3}
@@ -562,7 +562,7 @@ GameObject:
   - component: {fileID: 1896026649}
   - component: {fileID: 1896026650}
   m_Layer: 0
-  m_Name: herculeUpIdle
+  m_Name: HercAnims
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -577,7 +577,7 @@ Transform:
   m_GameObject: {fileID: 1896026647}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.41432387, y: 0.32825318, z: 0.6629182}
+  m_LocalScale: {x: 0.40189415, y: 0.38980064, z: 0.6629182}
   m_Children: []
   m_Father: {fileID: 63245929}
   m_RootOrder: 1
