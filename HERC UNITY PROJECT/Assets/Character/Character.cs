@@ -5,13 +5,13 @@ using UnityEngine;
 public class Character : MonoBehaviour
 {
     [Header("Stats")]
-    [Range(0, 5)] public float health;
+    public float health;
     [Range(0, 5)] public float moveSpeed;
     public string lookDirection = "Up";
-
+ 
     [Header("General Settings")]
+    public float setHealth;
     [Range(0, 5)] public float setMoveSpeed;
-    [Range(0, 5)] public float setHealth;
 
     [Header("Dash Setup")]
     [SerializeField] [Range(0,5)] float dashCD;
