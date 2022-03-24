@@ -5,6 +5,7 @@ using UnityEngine;
 public class BossAI : MonoBehaviour
 {
     GameObject player;
+    Rigidbody2D rb;
 
     [Header("Stats")]
     public bool rageState;
@@ -27,6 +28,7 @@ public class BossAI : MonoBehaviour
     void Start()
     {
         player = GameObject.FindWithTag("Player");
+        rb = gameObject.GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -38,6 +40,7 @@ public class BossAI : MonoBehaviour
         {
             random();
             canAttack = false;
+            //rb.MovePosition(player.transform.position);
         }
 
         if (canAttack == false)
@@ -53,7 +56,7 @@ public class BossAI : MonoBehaviour
 
     void random()
     {
-        float rng = Mathf.Round(Random.Range(2f, 2f));
+        float rng = Mathf.Round(Random.Range(1f, 2f));
         //Debug.Log(rng);
         
         //attack 1 rannge homing
@@ -73,7 +76,7 @@ public class BossAI : MonoBehaviour
 
         rotateTo2D(hitbox,player.transform.position);
 
-        hitbox.GetComponent<Rigidbody2D>().AddForce(playerDirection * distanceFromPlayer * arrowSpeed * 20, ForceMode2D.Force);
+        hitbox.GetComponent<Rigidbody2D>().AddForce(playerDirection * 5 * arrowSpeed * 20, ForceMode2D.Force);
         Object.Destroy(hitbox, 10);
     }
 
@@ -84,19 +87,10 @@ public class BossAI : MonoBehaviour
             hitbox = Instantiate(arrow, transform.position, Quaternion.identity, transform);
             float randomX = Random.Range(playerDirection.x - scale/10, playerDirection.x + scale/10);
             float randomY = Random.Range(playerDirection.y - scale/10, playerDirection.y + scale/10);
-            Vector2 randomDirection = new Vector2(randomX, randomY) *distanceFromPlayer;
-            if (i == 1)
-            {
-                Debug.Log("1....." + randomX + randomY);
-            }
-            else
-            {
-                Debug.Log(randomX+"X" + randomY+"Y");
-            }
+            Vector2 randomDirection = new Vector2(randomX, randomY)*5;
             
-            
-            rotateTo2D(hitbox, randomDirection * arrowSpeed *20);
-            hitbox.GetComponent<Rigidbody2D>().AddForce(randomDirection * arrowSpeed * 20, ForceMode2D.Force);
+            rotateTo2D(hitbox, randomDirection * 5 * arrowSpeed *20);
+            hitbox.GetComponent<Rigidbody2D>().AddForce(randomDirection * 5 * arrowSpeed * 20, ForceMode2D.Force);
         }
     }
 
