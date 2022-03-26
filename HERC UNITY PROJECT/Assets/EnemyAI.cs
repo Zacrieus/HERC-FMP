@@ -7,18 +7,23 @@ public class EnemyAI : MonoBehaviour
     GameObject player;
     Rigidbody2D rb;
     
-    [Header("Enemey Settings")]
+    [Header("Stats")]
     public float health;
-    public float attackRange;
     public float moveSpeed;
 
+    [Header("General Settings")]
+    public float setHealth;
+    [Range(0, 5)] public float setMoveSpeed;
+    [Range(0, 25)] public float attackRange;
+
     [Header("Attack Settings")]
-    bool canAttack;
-    float attackTimer;
-    [SerializeField] float attackWindUp;
-    [SerializeField] float attackDuration;
-    [SerializeField] float attackCd;
-    [SerializeField] bool isProjectile;
+    bool canAttack = true;
+    bool isSwinging = false;
+    float attackTimer = 0f;
+    [SerializeField] [Range(0, 3)] float attackWindUp;
+    [SerializeField] [Range(0, 5)] float attackDuration;
+    [SerializeField] [Range(0, 10)] float attackCd;
+    //[SerializeField] bool isProjectile;
     [SerializeField] GameObject attackHitbox;
     GameObject hitbox;
 
@@ -32,16 +37,19 @@ public class EnemyAI : MonoBehaviour
     {
         player = GameObject.FindWithTag("Player");
         rb = gameObject.GetComponent<Rigidbody2D>();
+        health = setHealth;
+        moveSpeed = setMoveSpeed;
     }
 
     // Update is called once per frame
     void Update()
     {
+        //Movement and Distance
         moveDirection = (player.transform.position - transform.position).normalized;
         distanceFromPlayer = (transform.position - player.transform.position).magnitude;
-        //moveDirection = moveDirection.magnitude;
-        //Debug.Log(moveDirection.normalized);
 
+
+        //attacking
         if (canAttack == false)
         {
             attackTimer += Time.deltaTime;
@@ -49,14 +57,20 @@ public class EnemyAI : MonoBehaviour
             if (attackTimer >= attackCd)
             {
                 //cooldown
-                Debug.Log("Reset");
                 canAttack = true;
                 attackTimer = 0f;
             }
-            if (attackTimer >= attackWindUp)
+            else if (isSwinging == true && attackTimer >= attackDuration + attackWindUp)
+            {
+                isSwinging = false;
+                Object.Destroy(hitbox, 0);
+
+            }
+            else if (isSwinging == false && attackTimer >= attackWindUp && attackTimer < attackDuration + attackWindUp)
             {
                 //attackStart
-                Debug.Log("swing");
+                isSwinging = true;
+
                 if (attckDirection == "Up")
                 { hitbox = Instantiate(attackHitbox, transform.position + new Vector3(0, attackHitbox.transform.localScale.y * transform.localScale.y, 0), Quaternion.identity, transform); }
                 else if (attckDirection == "Down")
@@ -65,28 +79,22 @@ public class EnemyAI : MonoBehaviour
                 { hitbox = Instantiate(attackHitbox, transform.position + new Vector3(attackHitbox.transform.localScale.x * transform.localScale.y, 0, 0), Quaternion.identity, transform); }
                 else if (attckDirection == "Left")
                 { hitbox = Instantiate(attackHitbox, transform.position + new Vector3(-attackHitbox.transform.localScale.x * transform.localScale.y, 0, 0), Quaternion.identity, transform); }
-                //Object.Destroy(hitbox, 1);
-
             }
 
-            if (attackTimer >= attackDuration)
-            {
-                Debug.Log("End");
-                Object.Destroy(hitbox, 0);
-            }
         }
 
     }
 
     void FixedUpdate()
     {
-        ///Debug.Log(distanceFromPlayer +"---" + attackRange);
-        if (distanceFromPlayer > attackRange -.5f )
+        //Debug.Log(distanceFromPlayer +"---" + attackRange);
+        if (distanceFromPlayer > attackRange -.5f && distanceFromPlayer != 0)
         { rb.velocity = moveDirection * moveSpeed; }
         else
-        { 
+        {
             rb.velocity = Vector2.zero;
-            attack();
+            if (canAttack)
+            {attack();}
         }
     }
 
@@ -121,10 +129,10 @@ public class EnemyAI : MonoBehaviour
             }
         }
 
-        Debug.Log(attckDirection);
+        //Debug.Log(attckDirection);
         if(canAttack == true)
         {
-            Debug.Log("Enemy Attack " + attckDirection);
+            //Debug.Log("Enemy Attack " + attckDirection);
             canAttack = false;
         }
     }
