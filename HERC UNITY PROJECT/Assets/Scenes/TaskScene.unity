@@ -559,7 +559,7 @@ MonoBehaviour:
   health: 0
   moveSpeed: 0.5
   setHealth: 0
-  setMoveSpeed: 0
+  setMoveSpeed: 1
   attackRange: 2
   attackWindUp: 0.3
   attackDuration: 0.75
