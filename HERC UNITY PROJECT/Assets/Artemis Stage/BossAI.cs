@@ -15,7 +15,8 @@ public class BossAI : MonoBehaviour
     [Header("Attack Settings")]
     bool canAttack = true;
     float attackTimer;
-    [SerializeField][Range(0,10)]float attackCD;
+    [SerializeField] [Range(0, 2)] float attackWindUp;
+    [SerializeField][Range(0,5)]float attackCD;
 
 
     //Setup
@@ -38,14 +39,16 @@ public class BossAI : MonoBehaviour
         distanceFromPlayer = (transform.position - player.transform.position).magnitude;
         if (canAttack)
         {
-            random();
             canAttack = false;
-            //rb.MovePosition(player.transform.position);
         }
 
         if (canAttack == false)
         {
             attackTimer += Time.deltaTime;
+            if (attackTimer >= attackWindUp)
+            {
+                random();
+            }
             if (attackTimer >= attackCD)
             {
                 canAttack = true;
@@ -56,7 +59,7 @@ public class BossAI : MonoBehaviour
 
     void random()
     {
-        float rng = Mathf.Round(Random.Range(1f, 2f));
+        float rng = Mathf.Round(Random.Range(1f, 3f));
         //Debug.Log(rng);
         
         //attack 1 rannge homing
@@ -65,6 +68,10 @@ public class BossAI : MonoBehaviour
         else if (rng == 2)
         {
             shotgunAttack(5,4);
+        }
+        else if (rng == 3)
+        {
+            rb.MovePosition(player.transform.position * Time.deltaTime);
         }
         //attack 2 multishot
     }
@@ -76,7 +83,7 @@ public class BossAI : MonoBehaviour
 
         rotateTo2D(hitbox,player.transform.position);
 
-        hitbox.GetComponent<Rigidbody2D>().AddForce(playerDirection * 5 * arrowSpeed * 20, ForceMode2D.Force);
+        hitbox.GetComponent<Rigidbody2D>().AddForce(playerDirection * arrowSpeed * 100, ForceMode2D.Force);
         Object.Destroy(hitbox, 10);
     }
 
@@ -87,10 +94,10 @@ public class BossAI : MonoBehaviour
             hitbox = Instantiate(arrow, transform.position, Quaternion.identity, transform);
             float randomX = Random.Range(playerDirection.x - scale/10, playerDirection.x + scale/10);
             float randomY = Random.Range(playerDirection.y - scale/10, playerDirection.y + scale/10);
-            Vector2 randomDirection = new Vector2(randomX, randomY)*5;
+            Vector2 randomDirection = new Vector2(randomX, randomY);
             
-            rotateTo2D(hitbox, randomDirection * 5 * arrowSpeed *20);
-            hitbox.GetComponent<Rigidbody2D>().AddForce(randomDirection * 5 * arrowSpeed * 20, ForceMode2D.Force);
+            rotateTo2D(hitbox, randomDirection * arrowSpeed *100);
+            hitbox.GetComponent<Rigidbody2D>().AddForce(randomDirection * arrowSpeed * 100, ForceMode2D.Force);
         }
     }
 
