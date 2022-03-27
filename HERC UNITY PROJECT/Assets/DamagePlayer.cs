@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class DamagePlayer : MonoBehaviour
 {
+    [SerializeField] [Range(0,2)] int damage;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -16,11 +18,12 @@ public class DamagePlayer : MonoBehaviour
         
     }
 
-    private void OnCollisionEnter(Collision collision)
+    void OnTriggerEnter2D(Collider2D col)
     {
-        if (collision.transform.tag == "Player")
+        if (col.transform.tag == "Player")
         {
-            collision.transform.GetComponent<Character>().health -= 1;
+            col.transform.GetComponent<Character>().takeDamage(damage);
+            Object.Destroy(gameObject, 0);
         }
     }
 }

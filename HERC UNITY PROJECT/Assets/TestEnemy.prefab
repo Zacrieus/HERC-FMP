@@ -73,7 +73,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
@@ -99,13 +99,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 0
   moveSpeed: 0.5
-  setHealth: 3
-  setMoveSpeed: 0.75
+  setHealth: 0
+  setMoveSpeed: 1
+  detectionRange: 6
   attackRange: 2
-  attackWindUp: 0.3
+  attackWindUp: 0.5
   attackDuration: 0.75
   attackCd: 2
   attackHitbox: {fileID: 1542301189572080389, guid: 89f51d92491b22148a689f6d7b32426d, type: 3}
+  smokeFX: {fileID: 1045768529326215863, guid: 6e12993b67314af4a9d0390f4423be05, type: 3}
 --- !u!50 &8482234618937177805
 Rigidbody2D:
   serializedVersion: 4
@@ -126,7 +128,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &8482234618937177802
 BoxCollider2D:
   m_ObjectHideFlags: 0

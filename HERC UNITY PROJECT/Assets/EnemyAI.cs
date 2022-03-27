@@ -11,23 +11,30 @@ public class EnemyAI : MonoBehaviour
     public float health;
     public float moveSpeed;
 
-    [Header("General Settings")]
+    [Header("GeneralSettings")]
     public float setHealth;
     [Range(0, 5)] public float setMoveSpeed;
-    [Range(0, 25)] public float attackRange;
+    [Range(0, 25)] public float detectionRange;
 
-    [Header("Attack Settings")]
+    //Attacl
     bool canAttack = true;
     bool isSwinging = false;
     float attackTimer = 0f;
+    [Header("AttackSettings")]
+
+    [Range(0, 25)] public float attackRange;
     [SerializeField] [Range(0, 3)] float attackWindUp;
     [SerializeField] [Range(0, 5)] float attackDuration;
     [SerializeField] [Range(0, 10)] float attackCd;
-    //[SerializeField] bool isProjectile;
+
+    [Header("Setup")]
     [SerializeField] GameObject attackHitbox;
+    [SerializeField] GameObject smokeFX;
+    GameObject smoke;
     GameObject hitbox;
 
     //Setup
+    Vector3 spawnLocation;
     Vector2 moveDirection;
     float distanceFromPlayer;
     string attckDirection;
@@ -39,6 +46,7 @@ public class EnemyAI : MonoBehaviour
         rb = gameObject.GetComponent<Rigidbody2D>();
         health = setHealth;
         moveSpeed = setMoveSpeed;
+        spawnLocation = transform.position;
     }
 
     // Update is called once per frame
@@ -88,14 +96,25 @@ public class EnemyAI : MonoBehaviour
     void FixedUpdate()
     {
         //Debug.Log(distanceFromPlayer +"---" + attackRange);
-        if (distanceFromPlayer > attackRange -.5f && distanceFromPlayer != 0)
-        { rb.velocity = moveDirection * moveSpeed; }
-        else
+        if (distanceFromPlayer > detectionRange)
+        {
+            Vector3 spawnDirection = (spawnLocation - transform.position).normalized;
+            float spawnDistance = (transform.position - spawnLocation).magnitude;
+            if (spawnDistance < 1f)
+            { rb.velocity = Vector2.zero; }
+            else
+            {
+                rb.velocity = spawnDirection * moveSpeed;
+            }
+        }
+        else if (distanceFromPlayer <= attackRange && distanceFromPlayer != 0)
         {
             rb.velocity = Vector2.zero;
             if (canAttack)
             {attack();}
         }
+        else if (distanceFromPlayer < detectionRange)
+        { rb.velocity = moveDirection * moveSpeed; }
     }
 
     void attack()
@@ -128,12 +147,11 @@ public class EnemyAI : MonoBehaviour
                 attckDirection = "Down";
             }
         }
+        
+        smoke = Instantiate(smokeFX, transform.position + new Vector3(0,-Mathf.Abs(transform.localScale.y/2), 0), Quaternion.identity, transform);
+        Object.Destroy(smoke, .7f);
 
-        //Debug.Log(attckDirection);
-        if(canAttack == true)
-        {
-            //Debug.Log("Enemy Attack " + attckDirection);
-            canAttack = false;
-        }
+        if (canAttack == true)
+        { canAttack = false; }
     }
 }

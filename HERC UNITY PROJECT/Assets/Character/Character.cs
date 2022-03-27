@@ -1,17 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Character : MonoBehaviour
 {
     [Header("Stats")]
     public float health;
     [Range(0, 5)] public float moveSpeed;
-    public string lookDirection = "Up";
+    public string lookDirection = "Right";
  
     [Header("General Settings")]
     public float setHealth;
     [Range(0, 5)] public float setMoveSpeed;
+    [Range(0, 3)] public float hurtImmunity;
 
     [Header("Dash Setup")]
     [SerializeField] [Range(0,5)] float dashCD;
@@ -36,7 +39,8 @@ public class Character : MonoBehaviour
     [HideInInspector] public bool isMoving = false;
     public Vector2 moveVector;
     [HideInInspector] public GameObject slashHitbox;
-
+    [HideInInspector] public bool immune = false;
+    SpriteRenderer sr;
     Rigidbody2D rb;
     GameObject hitbox;
 
@@ -44,6 +48,7 @@ public class Character : MonoBehaviour
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
+        sr = gameObject.transform.Find("HercAnims").GetComponent<SpriteRenderer>();
         animator = gameObject.GetComponentInChildren<Animator>();
         moveSpeed = setMoveSpeed;
         health = setHealth;
@@ -69,32 +74,54 @@ public class Character : MonoBehaviour
 
         //ismoving
         if (Input.GetAxisRaw("Horizontal") + Input.GetAxisRaw("Vertical") != 0)
-        { isMoving =true; }
+        { isMoving = true; }
         else
         { isMoving = false; }
 
         //Animations
-        if (isMoving == false)
+        if (isMoving == true)
         {
             if (lookDirection == "Up")
-            { ChangeAnim("IdleUp"); }
+            {
+                ChangeAnim("MoveUp");
+                transform.localScale = new Vector3(1, 1, 1);
+            }
             else if (lookDirection == "Down")
-            { ChangeAnim("IdleDown"); }
+            {
+                transform.localScale = new Vector3(1, 1, 1);
+            }
             if (lookDirection == "Right")
-            { }
+            { 
+                ChangeAnim("MoveRight");
+                transform.localScale = new Vector3(1, 1, 1);
+            }
             else if (lookDirection == "Left")
-            { }
+            {
+                ChangeAnim("MoveRight");
+                transform.localScale = new Vector3(-1, 1, 1); 
+            }
         }
         else
         {
             if (lookDirection == "Up")
-            { ChangeAnim("IdleUp"); }
+            {
+                ChangeAnim("IdleUp");
+                transform.localScale = new Vector3(1, 1, 1);
+            }
             else if (lookDirection == "Down")
-            { ChangeAnim("IdleDown"); }
+            {
+                transform.localScale = new Vector3(1, 1, 1);
+            }
             if (lookDirection == "Right")
-            { }
+            {
+                ChangeAnim("IdleRight");
+                transform.localScale = new Vector3(1, 1, 1);
+            }
             else if (lookDirection == "Left")
-            { }
+            {
+                ChangeAnim("IdleRight");
+                transform.localScale = new Vector3(-1, 1, 1);
+            }
         }
 
         //Attacking
@@ -138,6 +165,7 @@ public class Character : MonoBehaviour
                 Debug.Log("Dash");
                 canDash = false;
                 moveSpeed *= dashSpeed;
+                StartCoroutine(iFrames());
             }
         }
         if (canDash == false)
@@ -169,6 +197,33 @@ public class Character : MonoBehaviour
         animator.Play(newState);
 
         currentState = newState;
+    }
+
+    public void takeDamage(int amount)
+    {
+        //Debug.Log("Take Damage");
+        if (immune == false)
+        {
+            health -= amount;
+            StartCoroutine(onHurt());
+        }
+
+    }
+
+    IEnumerator onHurt()
+    {
+        sr.color = Color.red;
+        immune = true;
+        yield return new WaitForSeconds(hurtImmunity);
+        immune = false;
+        sr.color = Color.white;
+    }
+    
+    IEnumerator iFrames()
+    {
+        immune = true;
+        yield return new WaitForSeconds(dashDuration);
+        immune = false;
     }
 
     //sending variables
