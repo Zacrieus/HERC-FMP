@@ -186,7 +186,7 @@ public class Character : MonoBehaviour
 
         if (bloodVFX.color.a > 0)
         {
-            //bloodVFX.color = new Color((bloodVFX.color.r, bloodVFX.color.g, bloodVFX.color.b, bloodVFX.color.a / 255 - 1f));
+            bloodVFX.color = new Color(bloodVFX.color.r, bloodVFX.color.g, bloodVFX.color.b, bloodVFX.color.a - 1f * Time.deltaTime);
         }
     }
 
