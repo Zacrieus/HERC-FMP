@@ -34,7 +34,7 @@ public class Character : MonoBehaviour
 
 
     [Header("Setup (IGNORE)")]
-    Image bloodVFX;
+    Image bloodFX;
     Animator animator;
     string currentState;
     [HideInInspector] public bool isMoving = false;
@@ -48,7 +48,7 @@ public class Character : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        bloodVFX = GameObject.Find("Ving").GetComponent<Image>();
+        bloodFX = GameObject.Find("Ving").GetComponent<Image>();
         rb = gameObject.GetComponent<Rigidbody2D>();
         sr = gameObject.transform.Find("HercAnims").GetComponent<SpriteRenderer>();
         animator = gameObject.GetComponentInChildren<Animator>();
@@ -75,11 +75,13 @@ public class Character : MonoBehaviour
         { lookDirection = "Left"; }
 
         //ismoving
-        if (Mathf.Abs(Input.GetAxisRaw("Horizontal"))  + Mathf.Abs(Input.GetAxisRaw("Vertical")) != 0)
+        if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) + Mathf.Abs(Input.GetAxisRaw("Vertical")) != 0)
         { isMoving = true; }
         else
         { isMoving = false; }
 
+        Debug.Log(lookDirection + "|" + isMoving);
+        
         //Animations
         if (isMoving == true)
         {
@@ -184,9 +186,11 @@ public class Character : MonoBehaviour
             { moveSpeed = setMoveSpeed;}
         }
 
-        if (bloodVFX.color.a > 0)
+        //bloodFx
+
+        if (bloodFX.color.a > 0)
         {
-            //bloodVFX.color = new Color((bloodVFX.color.r, bloodVFX.color.g, bloodVFX.color.b, bloodVFX.color.a / 255 - 1f));
+            bloodFX.color = new Color(bloodFX.color.r, bloodFX.color.g, bloodFX.color.r)
         }
     }
 
@@ -223,7 +227,7 @@ public class Character : MonoBehaviour
     {
         sr.color = Color.red;
         immune = true;
-        bloodVFX.color = Color.white;
+        bloodFX.color = Color.white;
         yield return new WaitForSeconds(hurtImmunity);
         immune = false;
         sr.color = Color.white;
