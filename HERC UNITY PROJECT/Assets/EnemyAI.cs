@@ -38,6 +38,7 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] GameObject critFX;
     GameObject smoke;
     GameObject critTri;
+    GameObject critHitbox;
     GameObject hitbox;
 
     //Setup
@@ -99,41 +100,46 @@ public class EnemyAI : MonoBehaviour
         }
 
         //Crit Attack
-        if (canAttack == false && isCrit == true)
+        else if (canAttack == false && isCrit == true)
         {
             attackTimer += Time.deltaTime;
-            //Debug.Log(attackTimer);
+            
             if (attackTimer >= attackCd)
             {
                 //cooldown
                 canAttack = true;
                 attackTimer = 0f;
+                isCrit = false;
             }
-            else if (isSwinging == true && attackTimer >= critDuration + critkWindUp)
+            else if (isSwinging == true && attackTimer >= critDuration)
             {
                 isSwinging = false;
-                Object.Destroy(hitbox, 0);
+                Object.Destroy(critHitbox, 0);
 
             }
             else if (isSwinging == false && attackTimer >= critkWindUp && attackTimer < critDuration + critkWindUp)
             {
+                //Debug.Log("hi");
                 //attackStart
                 isSwinging = true;
 
                 if (attckDirection == "Up")
-                { hitbox = Instantiate(attackHitbox, transform.position + new Vector3(0, attackHitbox.transform.localScale.y * transform.localScale.y, 0), Quaternion.identity, transform); }
+                { critHitbox = Instantiate(attackHitbox, transform.position + new Vector3(0, attackHitbox.transform.localScale.y * transform.localScale.y, 0), Quaternion.identity, transform); }
                 else if (attckDirection == "Down")
-                { hitbox = Instantiate(attackHitbox, transform.position + new Vector3(0, -attackHitbox.transform.localScale.y * transform.localScale.y, 0), Quaternion.identity, transform); }
+                { critHitbox = Instantiate(attackHitbox, transform.position + new Vector3(0, -attackHitbox.transform.localScale.y * transform.localScale.y, 0), Quaternion.identity, transform); }
                 if (attckDirection == "Right")
-                { hitbox = Instantiate(attackHitbox, transform.position + new Vector3(attackHitbox.transform.localScale.x * transform.localScale.y, 0, 0), Quaternion.identity, transform); }
+                { critHitbox = Instantiate(attackHitbox, transform.position + new Vector3(attackHitbox.transform.localScale.x * transform.localScale.y, 0, 0), Quaternion.identity, transform); }
                 else if (attckDirection == "Left")
-                { hitbox = Instantiate(attackHitbox, transform.position + new Vector3(-attackHitbox.transform.localScale.x * transform.localScale.y, 0, 0), Quaternion.identity, transform); }
-
+                { critHitbox = Instantiate(attackHitbox, transform.position + new Vector3(-attackHitbox.transform.localScale.x * transform.localScale.y, 0, 0), Quaternion.identity, transform); }
+                Debug.Log(critHitbox);
+                critHitbox.GetComponent<SpriteRenderer>().color = new Color(255 / 255, 156 / 255, 0 / 255);
                 //CritFX HERE
                 //Hit box is crit?
             }
 
         }
+
+        Debug.Log(isSwinging+"---"+isCrit);
 
     }
 
@@ -191,9 +197,9 @@ public class EnemyAI : MonoBehaviour
 
         attackChance();
 
+        //Inditcators
         smoke = Instantiate(smokeFX, transform.position + new Vector3(0,-Mathf.Abs(transform.localScale.y/2), 0), Quaternion.identity, transform);
         Object.Destroy(smoke, .7f);
-
         if (isCrit == true)
         {
             critTri = Instantiate(critFX, transform.position + new Vector3(0, +2, 0), Quaternion.identity, transform);
