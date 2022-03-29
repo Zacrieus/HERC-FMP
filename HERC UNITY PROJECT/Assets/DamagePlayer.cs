@@ -9,7 +9,7 @@ public class DamagePlayer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0.00000001f, 0.0000001f);
     }
 
     // Update is called once per frame

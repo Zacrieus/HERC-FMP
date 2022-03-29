@@ -15,12 +15,17 @@ public class EnemyAI : MonoBehaviour
     public float setHealth;
     [Range(0, 5)] public float setMoveSpeed;
     [Range(0, 25)] public float detectionRange;
-
-    //Attacl
+                                                                                                             
+    //Attack
     bool canAttack = true;
     bool isSwinging = false;
     float attackTimer = 0f;
+    bool isCrit;
+
     [Header("AttackSettings")]
+    [Range(0, 100)] public float criticalChance;
+    [SerializeField] [Range(0, 3)] float critkWindUp;
+    [SerializeField] [Range(0, 5)] float critDuration;
 
     [Range(0, 25)] public float attackRange;
     [SerializeField] [Range(0, 3)] float attackWindUp;
@@ -58,7 +63,7 @@ public class EnemyAI : MonoBehaviour
 
 
         //attacking
-        if (canAttack == false)
+        if (canAttack == false && isCrit == false)
         {
             attackTimer += Time.deltaTime;
             //Debug.Log(attackTimer);
@@ -91,11 +96,47 @@ public class EnemyAI : MonoBehaviour
 
         }
 
+        //Crit Attack
+        if (canAttack == false && isCrit == true)
+        {
+            attackTimer += Time.deltaTime;
+            //Debug.Log(attackTimer);
+            if (attackTimer >= attackCd)
+            {
+                //cooldown
+                canAttack = true;
+                attackTimer = 0f;
+            }
+            else if (isSwinging == true && attackTimer >= critDuration + critkWindUp)
+            {
+                isSwinging = false;
+                Object.Destroy(hitbox, 0);
+
+            }
+            else if (isSwinging == false && attackTimer >= critkWindUp && attackTimer < critDuration + critkWindUp)
+            {
+                //attackStart
+                isSwinging = true;
+
+                if (attckDirection == "Up")
+                { hitbox = Instantiate(attackHitbox, transform.position + new Vector3(0, attackHitbox.transform.localScale.y * transform.localScale.y, 0), Quaternion.identity, transform); }
+                else if (attckDirection == "Down")
+                { hitbox = Instantiate(attackHitbox, transform.position + new Vector3(0, -attackHitbox.transform.localScale.y * transform.localScale.y, 0), Quaternion.identity, transform); }
+                if (attckDirection == "Right")
+                { hitbox = Instantiate(attackHitbox, transform.position + new Vector3(attackHitbox.transform.localScale.x * transform.localScale.y, 0, 0), Quaternion.identity, transform); }
+                else if (attckDirection == "Left")
+                { hitbox = Instantiate(attackHitbox, transform.position + new Vector3(-attackHitbox.transform.localScale.x * transform.localScale.y, 0, 0), Quaternion.identity, transform); }
+
+                //CritFX HERE
+                //Hit box is crit?
+            }
+
+        }
+
     }
 
     void FixedUpdate()
     {
-        //Debug.Log(distanceFromPlayer +"---" + attackRange);
         if (distanceFromPlayer > detectionRange)
         {
             Vector3 spawnDirection = (spawnLocation - transform.position).normalized;
@@ -103,9 +144,7 @@ public class EnemyAI : MonoBehaviour
             if (spawnDistance < 1f)
             { rb.velocity = Vector2.zero; }
             else
-            {
-                rb.velocity = spawnDirection * moveSpeed;
-            }
+            {rb.velocity = spawnDirection * moveSpeed;}
         }
         else if (distanceFromPlayer <= attackRange && distanceFromPlayer != 0)
         {
@@ -147,11 +186,31 @@ public class EnemyAI : MonoBehaviour
                 attckDirection = "Down";
             }
         }
-        
+
+        attackChance();
+
         smoke = Instantiate(smokeFX, transform.position + new Vector3(0,-Mathf.Abs(transform.localScale.y/2), 0), Quaternion.identity, transform);
         Object.Destroy(smoke, .7f);
 
+        if (isCrit == true)
+        {
+            //Crit FX
+        }
+
         if (canAttack == true)
         { canAttack = false; }
+    }
+
+
+    void attackChance()
+    { 
+        if (Random.Range(0,100) > 100 - criticalChance)
+        {
+            isCrit = true;
+        }
+        else
+        {
+            isCrit = false;
+        }
     }
 }
