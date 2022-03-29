@@ -35,7 +35,9 @@ public class EnemyAI : MonoBehaviour
     [Header("Setup")]
     [SerializeField] GameObject attackHitbox;
     [SerializeField] GameObject smokeFX;
+    [SerializeField] GameObject critFX;
     GameObject smoke;
+    GameObject critTri;
     GameObject hitbox;
 
     //Setup
@@ -194,7 +196,8 @@ public class EnemyAI : MonoBehaviour
 
         if (isCrit == true)
         {
-            //Crit FX
+            critTri = Instantiate(critFX, transform.position + new Vector3(0, +2, 0), Quaternion.identity, transform);
+            Object.Destroy(critTri,1);
         }
 
         if (canAttack == true)

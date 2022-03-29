@@ -284,8 +284,9 @@ MonoBehaviour:
   health: 0
   moveSpeed: 0
   lookDirection: 
-  setMoveSpeed: 3
   setHealth: 6
+  setMoveSpeed: 3
+  hurtImmunity: 0
   dashCD: 1
   dashSpeed: 5
   dashDuration: 0.125
@@ -295,6 +296,7 @@ MonoBehaviour:
   isMoving: 0
   moveVector: {x: 0, y: 0}
   slashHitbox: {fileID: 3862490131205147635, guid: 5d73f6623a8014c459d28bf99d7ad4dd, type: 3}
+  immune: 0
 --- !u!1 &382599733
 GameObject:
   m_ObjectHideFlags: 0
@@ -871,7 +873,7 @@ MonoBehaviour:
   rageState: 0
   arrow: {fileID: 5672847798747996758, guid: 15411ee4a058253458d091e32544df4f, type: 3}
   arrowSpeed: 3
-  attackWindUp: 0
+  attackWindUp: 1
   attackCD: 3
 --- !u!50 &2039818252
 Rigidbody2D:

@@ -14,6 +14,7 @@ public class BossAI : MonoBehaviour
 
     [Header("Attack Settings")]
     bool canAttack = true;
+    bool hasShot;
     float attackTimer;
     [SerializeField] [Range(0, 2)] float attackWindUp;
     [SerializeField][Range(0,5)]float attackCD;
@@ -40,6 +41,7 @@ public class BossAI : MonoBehaviour
         if (canAttack)
         {
             canAttack = false;
+            hasShot = false;
         }
 
         if (canAttack == false)
@@ -47,7 +49,11 @@ public class BossAI : MonoBehaviour
             attackTimer += Time.deltaTime;
             if (attackTimer >= attackWindUp)
             {
-                random();
+                if (hasShot == false)
+                {
+                    random();
+                    hasShot = true;
+                }
             }
             if (attackTimer >= attackCD)
             {
@@ -59,7 +65,7 @@ public class BossAI : MonoBehaviour
 
     void random()
     {
-        float rng = Mathf.Round(Random.Range(1f, 3f));
+        float rng = Mathf.Round(Random.Range(1f, 2f));
         //Debug.Log(rng);
         
         //attack 1 rannge homing
@@ -67,11 +73,11 @@ public class BossAI : MonoBehaviour
         {rangeAttack();}
         else if (rng == 2)
         {
-            shotgunAttack(5,4);
+            shotgunAttack(1,4);
         }
         else if (rng == 3)
         {
-            rb.MovePosition(player.transform.position * Time.deltaTime);
+            //rb.MovePosition(player.transform.position * Time.deltaTime);
         }
         //attack 2 multishot
     }
