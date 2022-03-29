@@ -75,6 +75,8 @@ public class EnemyAI : MonoBehaviour
                 //cooldown
                 canAttack = true;
                 attackTimer = 0f;
+                isSwinging = false;
+                Object.Destroy(hitbox, 0);
             }
             else if (isSwinging == true && attackTimer >= attackDuration + attackWindUp)
             {
@@ -110,8 +112,10 @@ public class EnemyAI : MonoBehaviour
                 canAttack = true;
                 attackTimer = 0f;
                 isCrit = false;
+                isSwinging = false;
+                Object.Destroy(critHitbox, 0);
             }
-            else if (isSwinging == true && attackTimer >= critDuration)
+            if (isSwinging == true && attackTimer >= critDuration)
             {
                 isSwinging = false;
                 Object.Destroy(critHitbox, 0);
@@ -132,7 +136,7 @@ public class EnemyAI : MonoBehaviour
                 else if (attckDirection == "Left")
                 { critHitbox = Instantiate(attackHitbox, transform.position + new Vector3(-attackHitbox.transform.localScale.x * transform.localScale.y, 0, 0), Quaternion.identity, transform); }
                 Debug.Log(critHitbox);
-                critHitbox.GetComponent<SpriteRenderer>().color = new Color(255 / 255, 156 / 255, 0 / 255);
+                critHitbox.GetComponent<SpriteRenderer>().color = new Color(255f / 255f, 156f / 255f, 0f / 255f,.5f);
                 //CritFX HERE
                 //Hit box is crit?
             }
