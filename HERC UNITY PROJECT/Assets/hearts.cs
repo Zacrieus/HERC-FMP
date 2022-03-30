@@ -16,13 +16,24 @@ public class HealthUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        health = GameObject.Find("Herc").GetComponent<Character>().health;
+        numOfHearts = health;
         heartsChange();
+        StartCoroutine(waitAbit(.5f));
+        StartCoroutine(waitAbit(1f));
+        StartCoroutine(waitAbit(3f));
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    IEnumerator waitAbit(float time)
+    {
+        yield return new WaitForSeconds(time);
+        heartsChange();
     }
 
     public void heartsChange()
