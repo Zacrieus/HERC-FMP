@@ -16,6 +16,7 @@ public class EnemyAI : MonoBehaviour
     [Range(0, 5)] public float setMoveSpeed;
     [Range(0, 25)] public float detectionRange;
     [Range(0, 100)] public float criticalChance;
+    [SerializeField] float hurtDuration;
 
     //Attack
     bool canAttack = true;
@@ -40,8 +41,10 @@ public class EnemyAI : MonoBehaviour
     GameObject critTri;
     GameObject critHitbox;
     GameObject hitbox;
+    Color origColor; 
 
     //Setup
+    SpriteRenderer sr;
     Vector3 spawnLocation;
     Vector2 moveDirection;
     float distanceFromPlayer;
@@ -214,6 +217,33 @@ public class EnemyAI : MonoBehaviour
         { canAttack = false; }
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.transform.tag == "PlayerAttack")
+        {
+            Debug.Log(collision);
+            Object.Destroy(collision.gameObject, 0);
+            takeDamage();
+        }
+    }
+
+    public void takeDamage()
+    {
+        Debug.Log(health);
+            health -= 1;
+            StartCoroutine(onHurt());
+            if (health <= 0)
+            { Object.Destroy(gameObject, 0); }
+
+    }
+
+    IEnumerator onHurt()
+    {
+        sr.color = Color.red;
+        //bloodVFX.color = Color.white;
+        yield return new WaitForSeconds(hurtDuration);
+        sr.color = Color.white;
+    }
 
     void attackChance()
     { 
