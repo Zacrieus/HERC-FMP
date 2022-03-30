@@ -15,7 +15,8 @@ public class EnemyAI : MonoBehaviour
     public float setHealth;
     [Range(0, 5)] public float setMoveSpeed;
     [Range(0, 25)] public float detectionRange;
-                                                                                                             
+    [Range(0, 100)] public float criticalChance;
+
     //Attack
     bool canAttack = true;
     bool isSwinging = false;
@@ -23,7 +24,6 @@ public class EnemyAI : MonoBehaviour
     bool isCrit;
 
     [Header("AttackSettings")]
-    [Range(0, 100)] public float criticalChance;
     [SerializeField] [Range(0, 3)] float critkWindUp;
     [SerializeField] [Range(0, 5)] float critDuration;
 
@@ -135,15 +135,15 @@ public class EnemyAI : MonoBehaviour
                 { critHitbox = Instantiate(attackHitbox, transform.position + new Vector3(attackHitbox.transform.localScale.x * transform.localScale.y, 0, 0), Quaternion.identity, transform); }
                 else if (attckDirection == "Left")
                 { critHitbox = Instantiate(attackHitbox, transform.position + new Vector3(-attackHitbox.transform.localScale.x * transform.localScale.y, 0, 0), Quaternion.identity, transform); }
-                Debug.Log(critHitbox);
-                critHitbox.GetComponent<SpriteRenderer>().color = new Color(255f / 255f, 156f / 255f, 0f / 255f,.5f);
+                critHitbox.GetComponent<SpriteRenderer>().color = new Color(255f / 255f, 156f / 255f, 0f / 255f, .5f);
+                critHitbox.GetComponent<DamagePlayer>().damage *= 2;
                 //CritFX HERE
                 //Hit box is crit?
             }
 
         }
 
-        Debug.Log(isSwinging+"---"+isCrit);
+        //Debug.Log(isSwinging+"---"+isCrit);
 
     }
 

@@ -208,13 +208,16 @@ public class Character : MonoBehaviour
         currentState = newState;
     }
 
-    public void takeDamage(int amount)
+    public void takeDamage(float amount)
     {
         //Debug.Log("Take Damage");
         if (immune == false)
         {
             health -= amount;
             StartCoroutine(onHurt());
+            GameObject.Find("Hearts").GetComponent<HealthUI>().heartsChange();
+            if (health <= 0)
+            { SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); }
         }
 
     }

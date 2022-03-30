@@ -402,6 +402,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8482234618937177806, guid: 7103c4cb5ec9ecb48ae30882ad89a71f, type: 3}
+      propertyPath: criticalChance
+      value: 33
+      objectReference: {fileID: 0}
     - target: {fileID: 8482234618937177841, guid: 7103c4cb5ec9ecb48ae30882ad89a71f, type: 3}
       propertyPath: m_Name
       value: TestEnemy
