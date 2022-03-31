@@ -140,7 +140,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!68 &309298122
 EdgeCollider2D:
   m_ObjectHideFlags: 0
@@ -774,7 +774,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8896803046703740922, guid: 6c8f8decbad4f414886c3c474d534eeb, type: 3}
       propertyPath: m_Interpolate
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6c8f8decbad4f414886c3c474d534eeb, type: 3}
