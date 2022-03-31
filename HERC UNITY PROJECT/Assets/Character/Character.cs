@@ -144,7 +144,6 @@ public class Character : MonoBehaviour
                 else if (lookDirection == "Left")
                 { hitbox = Instantiate(slashHitbox, transform.position + new Vector3(-slashHitbox.transform.localScale.x * transform.localScale.y, 0, 0), Quaternion.identity,transform);  }
 
-                hitbox.GetComponent<Rigidbody2D>().velocity = new Vector2(0.00000001f, 0.0000001f);
                 //hitbox.transform.lo
                 canAttack = false;
             }

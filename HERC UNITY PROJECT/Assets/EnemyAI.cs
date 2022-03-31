@@ -55,6 +55,7 @@ public class EnemyAI : MonoBehaviour
     {
         player = GameObject.FindWithTag("Player");
         rb = gameObject.GetComponent<Rigidbody2D>();
+        sr = gameObject.GetComponent<SpriteRenderer>();
         health = setHealth;
         moveSpeed = setMoveSpeed;
         spawnLocation = transform.position;
@@ -217,6 +218,7 @@ public class EnemyAI : MonoBehaviour
         { canAttack = false; }
     }
 
+    /*
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.transform.tag == "PlayerAttack")
@@ -226,15 +228,14 @@ public class EnemyAI : MonoBehaviour
             takeDamage();
         }
     }
+    */
 
     public void takeDamage()
-    {
-        Debug.Log(health);
+    { 
             health -= 1;
             StartCoroutine(onHurt());
             if (health <= 0)
             { Object.Destroy(gameObject, 0); }
-
     }
 
     IEnumerator onHurt()
