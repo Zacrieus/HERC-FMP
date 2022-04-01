@@ -81,50 +81,53 @@ public class Character : MonoBehaviour
         { isMoving = false; }
 
         //Animations
-        if (isMoving == true)
+        if (attackTimer < attackUpTime && canAttack == true)
         {
-            if (lookDirection == "Up")
+            if (isMoving == true)
             {
-                ChangeAnim("MoveUp");
-                transform.localScale = new Vector3(1, 1, 1);
+                if (lookDirection == "Up")
+                {
+                    ChangeAnim("MoveUp");
+                    transform.localScale = new Vector3(1, 1, 1);
+                }
+                else if (lookDirection == "Down")
+                {
+                    transform.localScale = new Vector3(1, 1, 1);
+                    ChangeAnim("MoveDown");
+                }
+                if (lookDirection == "Right")
+                {
+                    ChangeAnim("MoveRight");
+                    transform.localScale = new Vector3(1, 1, 1);
+                }
+                else if (lookDirection == "Left")
+                {
+                    ChangeAnim("MoveRight");
+                    transform.localScale = new Vector3(-1, 1, 1);
+                }
             }
-            else if (lookDirection == "Down")
+            else
             {
-                transform.localScale = new Vector3(1, 1, 1);
-                ChangeAnim("MoveDown");
-            }
-            if (lookDirection == "Right")
-            { 
-                ChangeAnim("MoveRight");
-                transform.localScale = new Vector3(1, 1, 1);
-            }
-            else if (lookDirection == "Left")
-            {
-                ChangeAnim("MoveRight");
-                transform.localScale = new Vector3(-1, 1, 1); 
-            }
-        }
-        else
-        {
-            if (lookDirection == "Up")
-            {
-                ChangeAnim("IdleUp");
-                transform.localScale = new Vector3(1, 1, 1);
-            }
-            else if (lookDirection == "Down")
-            {
-                transform.localScale = new Vector3(1, 1, 1);
-                ChangeAnim("IdleDown");
-            }
-            if (lookDirection == "Right")
-            {
-                ChangeAnim("IdleRight");
-                transform.localScale = new Vector3(1, 1, 1);
-            }
-            else if (lookDirection == "Left")
-            {
-                ChangeAnim("IdleRight");
-                transform.localScale = new Vector3(-1, 1, 1);
+                if (lookDirection == "Up")
+                {
+                    ChangeAnim("IdleUp");
+                    transform.localScale = new Vector3(1, 1, 1);
+                }
+                else if (lookDirection == "Down")
+                {
+                    transform.localScale = new Vector3(1, 1, 1);
+                    ChangeAnim("IdleDown");
+                }
+                if (lookDirection == "Right")
+                {
+                    ChangeAnim("IdleRight");
+                    transform.localScale = new Vector3(1, 1, 1);
+                }
+                else if (lookDirection == "Left")
+                {
+                    ChangeAnim("IdleRight");
+                    transform.localScale = new Vector3(-1, 1, 1);
+                }
             }
         }
 
@@ -140,9 +143,15 @@ public class Character : MonoBehaviour
                 else if (lookDirection == "Down")
                 { hitbox = Instantiate(slashHitbox, transform.position + new Vector3(0, -slashHitbox.transform.localScale.y * transform.localScale.y, 0), Quaternion.identity,transform); }
                 if (lookDirection == "Right")
-                { hitbox = Instantiate(slashHitbox, transform.position + new Vector3(slashHitbox.transform.localScale.x * transform.localScale.y, 0, 0), Quaternion.identity,transform);  }
+                { 
+                    hitbox = Instantiate(slashHitbox, transform.position + new Vector3(slashHitbox.transform.localScale.x * transform.localScale.y, 0, 0), Quaternion.identity,transform);
+                    ChangeAnim("RightAttack");
+                }
                 else if (lookDirection == "Left")
-                { hitbox = Instantiate(slashHitbox, transform.position + new Vector3(-slashHitbox.transform.localScale.x * transform.localScale.y, 0, 0), Quaternion.identity,transform);  }
+                { 
+                    hitbox = Instantiate(slashHitbox, transform.position + new Vector3(-slashHitbox.transform.localScale.x * transform.localScale.y, 0, 0), Quaternion.identity,transform);
+                    ChangeAnim("RightAttack");
+                }
 
                 //hitbox.transform.lo
                 canAttack = false;

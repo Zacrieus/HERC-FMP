@@ -55,7 +55,7 @@ public class EnemyAI : MonoBehaviour
     {
         player = GameObject.FindWithTag("Player");
         rb = gameObject.GetComponent<Rigidbody2D>();
-        sr = gameObject.GetComponent<SpriteRenderer>();
+        sr = gameObject.GetComponentInChildren<SpriteRenderer>();
         health = setHealth;
         moveSpeed = setMoveSpeed;
         spawnLocation = transform.position;
@@ -67,6 +67,35 @@ public class EnemyAI : MonoBehaviour
         //Movement and Distance
         moveDirection = (player.transform.position - transform.position).normalized;
         distanceFromPlayer = (transform.position - player.transform.position).magnitude;
+
+        if (Mathf.Abs(moveDirection.x) >= Mathf.Abs(moveDirection.y))
+        {
+            //Is Left or Right
+            if (moveDirection.x >= 0)
+            {
+                gameObject.GetComponentInChildren<Transform>().localScale = new Vector3(1, 1, 1);
+                transform.localScale = new Vector3(1, 1, 1);
+            }
+            else if (moveDirection.x < 0)
+            {
+                gameObject.GetComponentInChildren<Transform>().localScale = new Vector3(-1, 1, 1);
+            }
+
+
+        }
+        else if (Mathf.Abs(moveDirection.x) < Mathf.Abs(moveDirection.y))
+        {
+            //Is Up or Down
+            if (moveDirection.y >= 0)
+            {
+                //attckDirection = "Up";
+            }
+            else if (moveDirection.y < 0)
+            {
+                //attckDirection = "Down";
+            }
+        }
+
 
 
         //attacking
@@ -240,6 +269,7 @@ public class EnemyAI : MonoBehaviour
 
     IEnumerator onHurt()
     {
+        Debug.Log(sr.sprite);
         sr.color = Color.red;
         //bloodVFX.color = Color.white;
         yield return new WaitForSeconds(hurtDuration);
@@ -257,4 +287,5 @@ public class EnemyAI : MonoBehaviour
             isCrit = false;
         }
     }
+
 }
