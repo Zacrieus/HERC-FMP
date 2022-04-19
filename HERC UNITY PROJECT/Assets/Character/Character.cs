@@ -51,7 +51,7 @@ public class Character : MonoBehaviour
         bloodVFX = GameObject.Find("Ving").GetComponent<Image>();
         rb = gameObject.GetComponent<Rigidbody2D>();
         sr = gameObject.transform.Find("HercAnims").GetComponent<SpriteRenderer>();
-        animator = gameObject.GetComponentInChildren<Animator>();
+        animator = gameObject.transform.Find("HercAnims").GetComponent<Animator>();
         moveSpeed = setMoveSpeed;
         health = setHealth;
     }
@@ -139,9 +139,9 @@ public class Character : MonoBehaviour
             {
                 //need to rotate object in right direction but lazy
                 if (lookDirection == "Up")
-                { hitbox = Instantiate(slashHitbox, transform.position + new Vector3(0, slashHitbox.transform.localScale.y * transform.localScale.y, 0), Quaternion.identity,transform); }
+                { hitbox = Instantiate(slashHitbox, transform.position + new Vector3(0, slashHitbox.transform.localScale.y * transform.localScale.y, 0), Quaternion.Euler(0,0,90),transform); }
                 else if (lookDirection == "Down")
-                { hitbox = Instantiate(slashHitbox, transform.position + new Vector3(0, -slashHitbox.transform.localScale.y * transform.localScale.y, 0), Quaternion.identity,transform); }
+                { hitbox = Instantiate(slashHitbox, transform.position + new Vector3(0, -slashHitbox.transform.localScale.y * transform.localScale.y, 0), Quaternion.Euler(0, 0, -90), transform); }
                 if (lookDirection == "Right")
                 { 
                     hitbox = Instantiate(slashHitbox, transform.position + new Vector3(slashHitbox.transform.localScale.x * transform.localScale.y, 0, 0), Quaternion.identity,transform);

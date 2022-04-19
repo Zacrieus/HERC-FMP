@@ -55,7 +55,7 @@ public class EnemyAI : MonoBehaviour
     {
         player = GameObject.FindWithTag("Player");
         rb = gameObject.GetComponent<Rigidbody2D>();
-        sr = gameObject.GetComponentInChildren<SpriteRenderer>();
+        sr = gameObject.transform.Find("Sprite").GetComponent<SpriteRenderer>();
         health = setHealth;
         moveSpeed = setMoveSpeed;
         spawnLocation = transform.position;
@@ -269,7 +269,7 @@ public class EnemyAI : MonoBehaviour
 
     IEnumerator onHurt()
     {
-        Debug.Log(sr.sprite);
+        Debug.Log(sr);
         sr.color = Color.red;
         //bloodVFX.color = Color.white;
         yield return new WaitForSeconds(hurtDuration);
