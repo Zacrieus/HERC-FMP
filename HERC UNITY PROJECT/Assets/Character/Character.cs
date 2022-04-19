@@ -82,54 +82,7 @@ public class Character : MonoBehaviour
 
         //Animations
         if (attackTimer < attackUpTime && canAttack == true)
-        {
-            if (isMoving == true)
-            {
-                if (lookDirection == "Up")
-                {
-                    ChangeAnim("MoveUp");
-                    transform.localScale = new Vector3(1, 1, 1);
-                }
-                else if (lookDirection == "Down")
-                {
-                    transform.localScale = new Vector3(1, 1, 1);
-                    ChangeAnim("MoveDown");
-                }
-                if (lookDirection == "Right")
-                {
-                    ChangeAnim("MoveRight");
-                    transform.localScale = new Vector3(1, 1, 1);
-                }
-                else if (lookDirection == "Left")
-                {
-                    ChangeAnim("MoveRight");
-                    transform.localScale = new Vector3(-1, 1, 1);
-                }
-            }
-            else
-            {
-                if (lookDirection == "Up")
-                {
-                    ChangeAnim("IdleUp");
-                    transform.localScale = new Vector3(1, 1, 1);
-                }
-                else if (lookDirection == "Down")
-                {
-                    transform.localScale = new Vector3(1, 1, 1);
-                    ChangeAnim("IdleDown");
-                }
-                if (lookDirection == "Right")
-                {
-                    ChangeAnim("IdleRight");
-                    transform.localScale = new Vector3(1, 1, 1);
-                }
-                else if (lookDirection == "Left")
-                {
-                    ChangeAnim("IdleRight");
-                    transform.localScale = new Vector3(-1, 1, 1);
-                }
-            }
-        }
+        { directionAnims(); }
 
         //Attacking
         if (Input.GetMouseButtonDown(0))
@@ -166,7 +119,10 @@ public class Character : MonoBehaviour
                 attackTimer = 0f;
             }
             if (attackTimer > attackUpTime)
-            { Object.Destroy(hitbox, 0); }
+            { 
+                Object.Destroy(hitbox, 0);
+                directionAnims();
+            }
         }
 
         //Dash
@@ -228,6 +184,56 @@ public class Character : MonoBehaviour
             { SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); }
         }
 
+    }
+
+    void directionAnims()
+    {
+        if (isMoving == true)
+        {
+            if (lookDirection == "Up")
+            {
+                ChangeAnim("MoveUp");
+                transform.localScale = new Vector3(1, 1, 1);
+            }
+            else if (lookDirection == "Down")
+            {
+                transform.localScale = new Vector3(1, 1, 1);
+                ChangeAnim("MoveDown");
+            }
+            if (lookDirection == "Right")
+            {
+                ChangeAnim("MoveRight");
+                transform.localScale = new Vector3(1, 1, 1);
+            }
+            else if (lookDirection == "Left")
+            {
+                ChangeAnim("MoveRight");
+                transform.localScale = new Vector3(-1, 1, 1);
+            }
+        }
+        else
+        {
+            if (lookDirection == "Up")
+            {
+                ChangeAnim("IdleUp");
+                transform.localScale = new Vector3(1, 1, 1);
+            }
+            else if (lookDirection == "Down")
+            {
+                transform.localScale = new Vector3(1, 1, 1);
+                ChangeAnim("IdleDown");
+            }
+            if (lookDirection == "Right")
+            {
+                ChangeAnim("IdleRight");
+                transform.localScale = new Vector3(1, 1, 1);
+            }
+            else if (lookDirection == "Left")
+            {
+                ChangeAnim("IdleRight");
+                transform.localScale = new Vector3(-1, 1, 1);
+            }
+        }
     }
 
     IEnumerator onHurt()
