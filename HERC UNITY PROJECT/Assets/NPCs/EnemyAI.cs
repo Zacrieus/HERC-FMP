@@ -264,7 +264,10 @@ public class EnemyAI : MonoBehaviour
             health -= 1;
             StartCoroutine(onHurt());
             if (health <= 0)
-            { Object.Destroy(gameObject, 0); }
+            {
+                GameObject.Find("Enemies").GetComponent<task>().onEventCheck();
+                Object.Destroy(gameObject, 0);
+            }
     }
 
     IEnumerator onHurt()
