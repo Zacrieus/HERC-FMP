@@ -193,45 +193,45 @@ public class Character : MonoBehaviour
             if (lookDirection == "Up")
             {
                 ChangeAnim("MoveUp");
-                transform.localScale = new Vector3(1, 1, 1);
+                transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
             }
             else if (lookDirection == "Down")
             {
-                transform.localScale = new Vector3(1, 1, 1);
                 ChangeAnim("MoveDown");
+                transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
             }
             if (lookDirection == "Right")
             {
                 ChangeAnim("MoveRight");
-                transform.localScale = new Vector3(1, 1, 1);
+                transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
             }
             else if (lookDirection == "Left")
             {
                 ChangeAnim("MoveRight");
-                transform.localScale = new Vector3(-1, 1, 1);
+                transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
             }
         }
         else
         {
             if (lookDirection == "Up")
             {
-                ChangeAnim("IdleUp");
-                transform.localScale = new Vector3(1, 1, 1);
+                ChangeAnim("MoveUp");
+                transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
             }
             else if (lookDirection == "Down")
             {
-                transform.localScale = new Vector3(1, 1, 1);
-                ChangeAnim("IdleDown");
+                ChangeAnim("MoveDown");
+                transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
             }
             if (lookDirection == "Right")
             {
-                ChangeAnim("IdleRight");
-                transform.localScale = new Vector3(1, 1, 1);
+                ChangeAnim("MoveRight");
+                transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
             }
             else if (lookDirection == "Left")
             {
-                ChangeAnim("IdleRight");
-                transform.localScale = new Vector3(-1, 1, 1);
+                ChangeAnim("MoveRight");
+                transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
             }
         }
     }

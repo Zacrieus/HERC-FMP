@@ -73,7 +73,7 @@ public class BossAI : MonoBehaviour
         {rangeAttack();}
         else if (rng == 2)
         {
-            shotgunAttack(1,4);
+            //shotgunAttack(1,4);
         }
         else if (rng == 3)
         {
@@ -93,6 +93,8 @@ public class BossAI : MonoBehaviour
         Object.Destroy(hitbox, 10);
     }
 
+
+    /*
     void shotgunAttack(float amount,float scale)
     {
         for (int i = 0; i < amount; i++)
@@ -106,7 +108,7 @@ public class BossAI : MonoBehaviour
             hitbox.GetComponent<Rigidbody2D>().AddForce(randomDirection * arrowSpeed * 100, ForceMode2D.Force);
         }
     }
-
+    */
 
     void rotateTo2D(GameObject objecy,Vector3 destination)
     {
