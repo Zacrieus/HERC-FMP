@@ -11,6 +11,7 @@ public class BossAI : MonoBehaviour
     public bool rageState;
     [SerializeField] GameObject arrow;
     [SerializeField] [Range(0,10)]float arrowSpeed;
+    [Range(0, 100)] public float criticalChance;
 
     [Header("Attack Settings")]
     bool canAttack = true;
@@ -19,6 +20,9 @@ public class BossAI : MonoBehaviour
     [SerializeField] [Range(0, 2)] float attackWindUp;
     [SerializeField][Range(0,5)]float attackCD;
 
+
+    [Header("Setup")]
+    bool isCrit;
 
     //Setup
     Vector2 playerDirection;
@@ -52,6 +56,20 @@ public class BossAI : MonoBehaviour
                 if (hasShot == false)
                 {
                     random();
+                    //Attack
+                    attackChance();
+                    if (isCrit == true)
+                    {
+
+                    }
+                    else
+                    {
+                        rangeAttack();
+                    }
+
+
+
+
                     hasShot = true;
                 }
             }
@@ -71,7 +89,7 @@ public class BossAI : MonoBehaviour
         //attack 1 rannge homing
         if (rng == 1)
         {rangeAttack();}
-        else if (rng == 2)
+        else if (rng > 1)
         {
             //shotgunAttack(1,4);
         }
@@ -117,5 +135,17 @@ public class BossAI : MonoBehaviour
         float xVal = objecy.transform.position.x - destination.x;
         float zAngRotation = Mathf.Atan2(yVal, xVal) * Mathf.Rad2Deg;
         objecy.transform.rotation = Quaternion.Euler(0, 0, zAngRotation + 90);
+    }
+
+    void attackChance()
+    {
+        if (Random.Range(0, 100) > 100 - criticalChance)
+        {
+            isCrit = true;
+        }
+        else
+        {
+            isCrit = false;
+        }
     }
 }
