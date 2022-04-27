@@ -130,7 +130,7 @@ public class Character : MonoBehaviour
         {
             if (canDash == true && isMoving == true)
             {
-                Debug.Log("Dash");
+                //Debug.Log("Dash");
                 canDash = false;
                 moveSpeed *= dashSpeed;
                 StartCoroutine(iFrames());
@@ -188,7 +188,7 @@ public class Character : MonoBehaviour
 
     void directionAnims()
     {
-        if (isMoving == true)
+        if (isMoving == true && canAttack == true)
         {
             if (lookDirection == "Up")
             {
@@ -211,26 +211,26 @@ public class Character : MonoBehaviour
                 transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
             }
         }
-        else
+        else if (isMoving == false && canAttack == true)
         {
             if (lookDirection == "Up")
             {
-                ChangeAnim("MoveUp");
+                ChangeAnim("IdleUp");
                 transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
             }
             else if (lookDirection == "Down")
             {
-                ChangeAnim("MoveDown");
+                ChangeAnim("IdleDown");
                 transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
             }
             if (lookDirection == "Right")
             {
-                ChangeAnim("MoveRight");
+                ChangeAnim("IdleRight");
                 transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
             }
             else if (lookDirection == "Left")
             {
-                ChangeAnim("MoveRight");
+                ChangeAnim("IdleRight");
                 transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
             }
         }
@@ -249,7 +249,9 @@ public class Character : MonoBehaviour
     IEnumerator iFrames()
     {
         immune = true;
+        gameObject.tag = "Untagged";
         yield return new WaitForSeconds(dashDuration +.5f);
+        gameObject.tag = "Player";
         immune = false;
     }
 

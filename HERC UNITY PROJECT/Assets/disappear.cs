@@ -13,7 +13,9 @@ public class disappear : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (true)
-        { }
+        if (GameObject.Find("Enemies").GetComponent<task>().taskStage == 2)
+        {
+            Destroy(gameObject);
+        }
     }
 }

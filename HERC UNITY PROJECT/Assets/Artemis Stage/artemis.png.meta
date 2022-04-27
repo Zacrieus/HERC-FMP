@@ -1,13 +1,7 @@
 fileFormatVersion: 2
-guid: 1dee52e252f83c04d84ed41ec2e56ae8
+guid: 2babc2561c4d45440a4c51fba4dced99
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: 8388507542768137949
-    second: Herc Idle _0
-  - first:
-      213: -132317446187923590
-    second: Herc Idle _1
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -47,7 +41,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -95,49 +89,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: Herc Idle _0
-      rect:
-        serializedVersion: 2
-        x: 31
-        y: 23
-        width: 22
-        height: 47
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: dd6316a7a27f96470800000000000000
-      internalID: 8388507542768137949
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Herc Idle _1
-      rect:
-        serializedVersion: 2
-        x: 127
-        y: 23
-        width: 22
-        height: 45
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a77c166dbf9e92ef0800000000000000
-      internalID: -132317446187923590
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    sprites: []
     outline: []
     physicsShape: []
     bones: []

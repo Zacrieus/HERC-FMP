@@ -18,10 +18,20 @@ public class playerAttack : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.transform.tag == "Enemy")
+        if (col)
         {
-            col.transform.GetComponent<EnemyAI>().takeDamage();
-            Object.Destroy(gameObject, 0);
+            //Debug.Log(col);
+
+            if (col.transform.tag == "Enemy")
+            {
+                col.transform.GetComponent<EnemyAI>().takeDamage();
+                //Object.Destroy(gameObject, 0);
+            }
+            if (col.transform.tag == "Boss")
+            {
+                col.transform.GetComponent<BossAI>().takeDamage();
+                //Object.Destroy(gameObject, 0);
+            }
         }
     }
 }

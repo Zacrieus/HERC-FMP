@@ -5,6 +5,7 @@ using UnityEngine;
 public class task : MonoBehaviour
 {
     GameObject enemies;
+    public int taskStage = 1;
 
     // Start is called before the first frame update
     void Start()
@@ -22,13 +23,9 @@ public class task : MonoBehaviour
     {
         if (enemies.transform.childCount == 0)
         {
-            eventChange();
+            taskStage += 1;
         }
 
     }
 
-    public void eventChange()
-    {
-
-    }
 }

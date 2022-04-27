@@ -152,7 +152,6 @@ public class EnemyAI : MonoBehaviour
             {
                 isSwinging = false;
                 Object.Destroy(critHitbox, 0);
-
             }
             else if (isSwinging == false && attackTimer >= critkWindUp && attackTimer < critDuration + critkWindUp)
             {
@@ -173,11 +172,7 @@ public class EnemyAI : MonoBehaviour
                 //CritFX HERE
                 //Hit box is crit?
             }
-
         }
-
-        //Debug.Log(isSwinging+"---"+isCrit);
-
     }
 
     void FixedUpdate()
@@ -209,13 +204,9 @@ public class EnemyAI : MonoBehaviour
         {
             //Is Left or Right
             if (moveDirection.x >= 0)
-            {
-                attckDirection = "Right";
-            }
+            {attckDirection = "Right";}
             else if (moveDirection.x < 0)
-            {
-                attckDirection = "Left";
-            }
+            {attckDirection = "Left";}
 
 
         }
@@ -223,13 +214,9 @@ public class EnemyAI : MonoBehaviour
         {
             //Is Up or Down
             if (moveDirection.y >= 0)
-            {
-                attckDirection = "Up";
-            }
+            {attckDirection = "Up";}
             else if (moveDirection.y < 0)
-            {
-                attckDirection = "Down";
-            }
+            {attckDirection = "Down";}
         }
 
         attackChance();
@@ -247,18 +234,6 @@ public class EnemyAI : MonoBehaviour
         { canAttack = false; }
     }
 
-    /*
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.transform.tag == "PlayerAttack")
-        {
-            Debug.Log(collision);
-            Object.Destroy(collision.gameObject, 0);
-            takeDamage();
-        }
-    }
-    */
-
     public void takeDamage()
     { 
             health -= 1;
@@ -272,9 +247,7 @@ public class EnemyAI : MonoBehaviour
 
     IEnumerator onHurt()
     {
-        Debug.Log(sr);
         sr.color = Color.red;
-        //bloodVFX.color = Color.white;
         yield return new WaitForSeconds(hurtDuration);
         sr.color = Color.white;
     }
@@ -282,13 +255,9 @@ public class EnemyAI : MonoBehaviour
     void attackChance()
     { 
         if (Random.Range(0,100) > 100 - criticalChance)
-        {
-            isCrit = true;
-        }
+        {isCrit = true;}
         else
-        {
-            isCrit = false;
-        }
+        {isCrit = false;}
     }
 
 }
