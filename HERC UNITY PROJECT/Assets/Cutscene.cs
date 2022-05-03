@@ -10,6 +10,7 @@ public class Cutscene : MonoBehaviour
 
     float textTime = 5f;
     float timer = 0f;
+    GameObject hearts;
 
     int textProgresion = 1;
     [SerializeField] string aretmisText1;
@@ -24,6 +25,10 @@ public class Cutscene : MonoBehaviour
         player = GameObject.Find("Herc");
         boss = GameObject.Find("Boss");
         dialogue = GameObject.Find("Dialogue").GetComponent<Dialogue>();
+        hearts = GameObject.Find("Hearts");
+        hearts.active = false;
+        player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll; ;
+        boss.GetComponent<BossAI>().enabled = false;
 
         dialogue.newText(boss, aretmisText1, textTime, Color.green);
     }
@@ -31,7 +36,7 @@ public class Cutscene : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (timer < textTime)
+        if (timer < textTime && textProgresion < 6)
         { timer += Time.deltaTime; }
         else
         {
@@ -46,6 +51,19 @@ public class Cutscene : MonoBehaviour
             { dialogue.newText(player, HercText3, textTime, Color.yellow); }
             else if (textProgresion == 5)
             { dialogue.newText(player, HercText4, textTime, Color.yellow); }
+            else
+            { CutsceneEnd(); }
+
         }
+    }
+
+    void CutsceneEnd()
+    {
+        player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+        player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
+        hearts.active = true;
+        boss.GetComponent<BossAI>().enabled = true;
+        Object.Destroy(GameObject.Find("BlackBars"),0);
+
     }
 }
