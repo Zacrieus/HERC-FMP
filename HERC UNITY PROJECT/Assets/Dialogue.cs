@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NewBehaviourScript : MonoBehaviour
+public class Dialogue : MonoBehaviour
 {
     [SerializeField] GameObject Text;
 
@@ -18,9 +18,12 @@ public class NewBehaviourScript : MonoBehaviour
         
     }
 
-    void newText(GameObject charater, string Text,float duration)
+    public void newText(GameObject charater, string dialogueText,float duration, Color col)
     {
-       // new
-       // Instantiate();
+        // new
+        GameObject newText = Instantiate(Text,charater.transform.position,Quaternion.identity);
+        newText.GetComponent<TextMesh>().text = dialogueText;
+        newText.GetComponent<TextMesh>().color = col;
+        Object.Destroy(newText, duration);
     }
 }
