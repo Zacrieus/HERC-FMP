@@ -6,6 +6,7 @@ public class Cutscene : MonoBehaviour
 {
     GameObject player;
     GameObject boss;
+    BossAI bossCode;
     Dialogue dialogue;
 
     float textTime = 5f;
@@ -28,7 +29,8 @@ public class Cutscene : MonoBehaviour
         hearts = GameObject.Find("Hearts");
         hearts.active = false;
         player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll; ;
-        boss.GetComponent<BossAI>().enabled = false;
+        bossCode = boss.GetComponent<BossAI>();
+        bossCode.enabled = false;
 
         dialogue.newText(boss, aretmisText1, textTime, Color.green);
     }
@@ -62,7 +64,7 @@ public class Cutscene : MonoBehaviour
         player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
         player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
         hearts.active = true;
-        boss.GetComponent<BossAI>().enabled = true;
+        bossCode.enabled = true;
         Object.Destroy(GameObject.Find("TopBar"),0);
         Object.Destroy(GameObject.Find("BotBar"), 0);
     }

@@ -54,6 +54,12 @@ public class Character : MonoBehaviour
         animator = gameObject.transform.Find("HercAnims").GetComponent<Animator>();
         moveSpeed = setMoveSpeed;
         health = setHealth;
+        Scene currentScene = SceneManager.GetActiveScene();
+        string sceneName = currentScene.name;
+
+        if (sceneName == "The Cattle")
+        { GameObject.Find("Dialogue").GetComponent<Dialogue>().newText(gameObject,"Time to start my quest",3f,Color.yellow); }
+
     }
 
     // Update is called once per frame
@@ -81,7 +87,7 @@ public class Character : MonoBehaviour
         { isMoving = false; }
 
         //Animations
-        if (attackTimer < attackUpTime && canAttack == true)
+        if ( canAttack == true)
         { directionAnims(); }
 
         //Attacking
@@ -92,9 +98,15 @@ public class Character : MonoBehaviour
             {
                 //need to rotate object in right direction but lazy
                 if (lookDirection == "Up")
-                { hitbox = Instantiate(slashHitbox, transform.position + new Vector3(0, slashHitbox.transform.localScale.y * transform.localScale.y, 0), Quaternion.Euler(0,0,90),transform); }
+                {
+                    hitbox = Instantiate(slashHitbox, transform.position + new Vector3(0, slashHitbox.transform.localScale.y * transform.localScale.y, 0), Quaternion.Euler(0,0,90),transform);
+                    ChangeAnim("UpAttack");
+                }
                 else if (lookDirection == "Down")
-                { hitbox = Instantiate(slashHitbox, transform.position + new Vector3(0, -slashHitbox.transform.localScale.y * transform.localScale.y, 0), Quaternion.Euler(0, 0, -90), transform); }
+                {
+                    hitbox = Instantiate(slashHitbox, transform.position + new Vector3(0, -slashHitbox.transform.localScale.y * transform.localScale.y, 0), Quaternion.Euler(0, 0, -90), transform);
+                    ChangeAnim("DownAttack");
+                }
                 if (lookDirection == "Right")
                 { 
                     hitbox = Instantiate(slashHitbox, transform.position + new Vector3(slashHitbox.transform.localScale.x * transform.localScale.y, 0, 0), Quaternion.identity,transform);
@@ -121,7 +133,6 @@ public class Character : MonoBehaviour
             if (attackTimer > attackUpTime)
             { 
                 Object.Destroy(hitbox, 0);
-                directionAnims();
             }
         }
 

@@ -5,7 +5,7 @@ using UnityEngine;
 public class task : MonoBehaviour
 {
     GameObject enemies;
-    public int taskStage = 1;
+    public bool enemiesDefeated = false;
 
     // Start is called before the first frame update
     void Start()
@@ -21,9 +21,11 @@ public class task : MonoBehaviour
 
     public void onEventCheck()
     {
-        if (enemies.transform.childCount == 0)
+        Debug.Log(enemies.transform.childCount);
+        if (enemies.transform.childCount <= 0)
         {
-            taskStage += 1;
+            Debug.Log("Complete");
+            enemiesDefeated = true;
         }
 
     }

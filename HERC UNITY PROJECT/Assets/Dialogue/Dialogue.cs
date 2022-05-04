@@ -21,10 +21,13 @@ public class Dialogue : MonoBehaviour
     public void newText(GameObject charater, string dialogueText,float duration, Color col)
     {
         // new
-        GameObject newText = Instantiate(Text,charater.transform.position + new Vector3(0,3,0),Quaternion.identity);
+        GameObject newText = Instantiate(Text,charater.transform.position,Quaternion.identity);
         //newText.transform.SetParent(charater.transform);  //flips
+        //newText.GetComponent<TextPositiion>().follow = charater;
+
         newText.GetComponent<TMPro.TextMeshPro>().text = dialogueText;
         newText.GetComponent<TMPro.TextMeshPro>().color = col;
         Object.Destroy(newText, duration);
+        newText.GetComponent<TextPositiion>().follow = charater;
     }
 }

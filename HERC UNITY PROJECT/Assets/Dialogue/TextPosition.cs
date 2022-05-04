@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class disappear : MonoBehaviour
+public class TextPositiion : MonoBehaviour
 {
+    public GameObject follow;
     // Start is called before the first frame update
     void Start()
     {
@@ -11,12 +12,12 @@ public class disappear : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
-        if (GameObject.Find("Enemies").GetComponent<task>().enemiesDefeated == true)
+        if (follow)
         {
-            Debug.Log("Done");
-            Object.Destroy(gameObject,0f);
+            Debug.Log(follow);
+            gameObject.transform.position = follow.transform.position + new Vector3(0, 2, 0);
         }
     }
 }

@@ -249,6 +249,7 @@ public class EnemyAI : MonoBehaviour
     {
         sr.color = Color.red;
         yield return new WaitForSeconds(hurtDuration);
+        GameObject.Find("Dialogue").GetComponent<Dialogue>().newText(gameObject,"Arughhhh",1f,Color.red);
         sr.color = Color.white;
     }
 
