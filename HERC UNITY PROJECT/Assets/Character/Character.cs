@@ -58,7 +58,7 @@ public class Character : MonoBehaviour
         string sceneName = currentScene.name;
 
         if (sceneName == "The Cattle")
-        { GameObject.Find("Dialogue").GetComponent<Dialogue>().newText(gameObject,"Time to start my quest",3f,Color.yellow); }
+        { GameObject.Find("Dialogue").GetComponent<Dialogue>().newText(gameObject,"Time to become a hero. First step, The Cattle.",3f,Color.yellow); }
 
     }
 

@@ -240,7 +240,7 @@ public class EnemyAI : MonoBehaviour
             StartCoroutine(onHurt());
             if (health <= 0)
             {
-                GameObject.Find("Enemies").GetComponent<task>().onEventCheck();
+                //Death
                 Object.Destroy(gameObject, 0);
             }
     }
@@ -249,7 +249,6 @@ public class EnemyAI : MonoBehaviour
     {
         sr.color = Color.red;
         yield return new WaitForSeconds(hurtDuration);
-        GameObject.Find("Dialogue").GetComponent<Dialogue>().newText(gameObject,"Arughhhh",1f,Color.red);
         sr.color = Color.white;
     }
 

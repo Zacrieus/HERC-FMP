@@ -28,6 +28,6 @@ public class Dialogue : MonoBehaviour
         newText.GetComponent<TMPro.TextMeshPro>().text = dialogueText;
         newText.GetComponent<TMPro.TextMeshPro>().color = col;
         Object.Destroy(newText, duration);
-        newText.GetComponent<TextPositiion>().follow = charater;
+        newText.GetComponent<TextPosition>().follow(charater);
     }
 }

@@ -32,6 +32,11 @@ public class playerAttack : MonoBehaviour
                 col.transform.GetComponent<BossAI>().takeDamage();
                 //Object.Destroy(gameObject, 0);
             }
+            if (col.transform.tag == "Objective")
+            {
+                Debug.Log("Load");
+                col.transform.GetComponent<NextScene>().loadScene();
+            }
         }
     }
 }
