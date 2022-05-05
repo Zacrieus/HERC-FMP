@@ -9,7 +9,7 @@ public class NextScene : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        //SceneManager.LoadScene(nextScene);
     }
 
     // Update is called once per frame
@@ -42,6 +42,9 @@ public class NextScene : MonoBehaviour
     */
     public void loadScene()
     {
+        SceneManager.LoadScene(nextScene);
+
+        /*
         Scene currentScene = SceneManager.GetActiveScene();
         string sceneName = currentScene.name;
 
@@ -50,5 +53,6 @@ public class NextScene : MonoBehaviour
         { SceneManager.LoadScene(nextScene); }
         else
         { Debug.Log("Invalid Scene: " + nextScene); SceneManager.LoadScene(nextScene); }
+        */
     }
 }

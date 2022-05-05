@@ -15,10 +15,11 @@ public class Cutscene : MonoBehaviour
 
     int textProgresion = 1;
     [SerializeField] string aretmisText1;
+    [SerializeField] string aretmisText2;
     [SerializeField] string HercText1;
     [SerializeField] string HercText2;
-    [SerializeField] string HercText3;
-    [SerializeField] string HercText4;
+    [SerializeField] string aretmisText3;
+    [SerializeField] string aretmisText4;
 
     // Start is called before the first frame update
     void Start()
@@ -38,22 +39,24 @@ public class Cutscene : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (timer < textTime && textProgresion < 6)
+        if (timer < textTime && textProgresion < 7)
         { timer += Time.deltaTime; }
-        else if (textProgresion < 6)
+        else if (textProgresion < 7)
         {
             timer = 0f;
             textProgresion += 1;
 
             if (textProgresion == 2)
-            { dialogue.newText(player, HercText1, textTime, Color.yellow); }
+            { dialogue.newText(boss, aretmisText2, textTime, Color.green); }
             else if (textProgresion == 3)
-            { dialogue.newText(player, HercText2, textTime, Color.yellow); }
+            { dialogue.newText(player, HercText1, textTime, Color.yellow); }
             else if (textProgresion == 4)
-            { dialogue.newText(player, HercText3, textTime, Color.yellow); }
+            { dialogue.newText(player, HercText2, textTime, Color.yellow); }
             else if (textProgresion == 5)
-            { dialogue.newText(player, HercText4, textTime, Color.yellow); }
+            { dialogue.newText(boss, aretmisText3, textTime, Color.green); }
             else if (textProgresion == 6)
+            { dialogue.newText(boss, aretmisText4, textTime, Color.green); }
+            else if (textProgresion == 7)
             { CutsceneEnd(); }
 
         }
