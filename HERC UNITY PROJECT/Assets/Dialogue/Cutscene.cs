@@ -40,7 +40,7 @@ public class Cutscene : MonoBehaviour
     {
         if (timer < textTime && textProgresion < 6)
         { timer += Time.deltaTime; }
-        else
+        else if (textProgresion < 6)
         {
             timer = 0f;
             textProgresion += 1;
@@ -53,7 +53,7 @@ public class Cutscene : MonoBehaviour
             { dialogue.newText(player, HercText3, textTime, Color.yellow); }
             else if (textProgresion == 5)
             { dialogue.newText(player, HercText4, textTime, Color.yellow); }
-            else
+            else if (textProgresion == 6)
             { CutsceneEnd(); }
 
         }

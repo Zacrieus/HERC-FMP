@@ -31,8 +31,6 @@ public class Character : MonoBehaviour
     bool canAttack = true;
     //public bool PriortizeVerticalOverHorizontal;
 
-
-
     [Header("Setup (IGNORE)")]
     Image bloodVFX;
     Animator animator;
@@ -69,16 +67,30 @@ public class Character : MonoBehaviour
         //animator.SetBool("isMoving", isMoving);
         //animator.SetInteger("Direction", lookDirection);
 
-        //LookDirection 1 = Up/W    2=Down/S      3=Left/A      4=Right/D
-        if (Input.GetAxisRaw("Vertical") > 0)
-        { lookDirection = "Up"; }
-        else if (Input.GetAxisRaw("Vertical") < 0)
-        { lookDirection = "Down"; }
+        /*
+        moveVector = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        moveVector = moveVector.normalized;
+        rb.velocity = moveVector * moveSpeed;
+        */
 
+        //LookDirection 1 = Up/W    2=Down/S      3=Left/A      4=Right/D
+        
         if (Input.GetAxisRaw("Horizontal") > 0)
-        { lookDirection = "Right"; }
+        { 
+            lookDirection = "Right"; 
+        }
         else if (Input.GetAxisRaw("Horizontal") < 0)
-        { lookDirection = "Left"; }
+        { 
+            lookDirection = "Left"; 
+        }
+        else if (Input.GetAxisRaw("Vertical") > 0)
+        { 
+            lookDirection = "Up"; 
+        }
+        else if (Input.GetAxisRaw("Vertical") < 0)
+        { 
+            lookDirection = "Down"; 
+        }
 
         //ismoving
         if (Mathf.Abs(Input.GetAxisRaw("Horizontal"))  + Mathf.Abs(Input.GetAxisRaw("Vertical")) != 0)
@@ -91,7 +103,7 @@ public class Character : MonoBehaviour
         { directionAnims(); }
 
         //Attacking
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
         {
 
             if (canAttack == true)
@@ -169,8 +181,6 @@ public class Character : MonoBehaviour
     {
         moveVector = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         moveVector = moveVector.normalized;
-
-        //rb.MovePosition(rb.position + moveVector * moveSpeed * Time.fixedDeltaTime);
         rb.velocity = moveVector * moveSpeed;
     }
 
@@ -201,7 +211,17 @@ public class Character : MonoBehaviour
     {
         if (isMoving == true && canAttack == true)
         {
-            if (lookDirection == "Up")
+            if (lookDirection == "Right")
+            {
+                ChangeAnim("MoveRight");
+                transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+            }
+            else if (lookDirection == "Left")
+            {
+                ChangeAnim("MoveRight");
+                transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+            }
+            else if (lookDirection == "Up")
             {
                 ChangeAnim("MoveUp");
                 transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
@@ -211,20 +231,21 @@ public class Character : MonoBehaviour
                 ChangeAnim("MoveDown");
                 transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
             }
+
+        }
+        else if (isMoving == false && canAttack == true)
+        {
             if (lookDirection == "Right")
             {
-                ChangeAnim("MoveRight");
+                ChangeAnim("IdleRight");
                 transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
             }
             else if (lookDirection == "Left")
             {
-                ChangeAnim("MoveRight");
+                ChangeAnim("IdleRight");
                 transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
             }
-        }
-        else if (isMoving == false && canAttack == true)
-        {
-            if (lookDirection == "Up")
+            else if (lookDirection == "Up")
             {
                 ChangeAnim("IdleUp");
                 transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
@@ -233,16 +254,6 @@ public class Character : MonoBehaviour
             {
                 ChangeAnim("IdleDown");
                 transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
-            }
-            if (lookDirection == "Right")
-            {
-                ChangeAnim("IdleRight");
-                transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
-            }
-            else if (lookDirection == "Left")
-            {
-                ChangeAnim("IdleRight");
-                transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
             }
         }
     }
