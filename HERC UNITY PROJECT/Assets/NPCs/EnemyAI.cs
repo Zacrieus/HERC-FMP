@@ -100,16 +100,15 @@ public class EnemyAI : MonoBehaviour
         }
 
 
-        if (rb.velocity.x > 0)
+        if (rb.velocity.x >= 0 && isSwinging == false)
         {
             gameObject.GetComponentInChildren<Transform>().localScale = new Vector3(Mathf.Abs(gameObject.GetComponentInChildren<Transform>().localScale.x), gameObject.GetComponentInChildren<Transform>().localScale.y, gameObject.GetComponentInChildren<Transform>().localScale.z);
-            ChangeAnim("AttackRight");
+            ChangeAnim("MoveRight");
         }
-        else if (rb.velocity.x < 0)
+        else if (rb.velocity.x < 0 && isSwinging == false)
         {
             gameObject.GetComponentInChildren<Transform>().localScale = new Vector3(-Mathf.Abs(gameObject.GetComponentInChildren<Transform>().localScale.x), gameObject.GetComponentInChildren<Transform>().localScale.y, gameObject.GetComponentInChildren<Transform>().localScale.z);
-            ChangeAnim("AttackRight");
-
+            ChangeAnim("MoveRight");
         }
 
 
@@ -139,13 +138,29 @@ public class EnemyAI : MonoBehaviour
                 isSwinging = true;
 
                 if (attckDirection == "Up")
-                { hitbox = Instantiate(attackHitbox, transform.position + new Vector3(0, attackHitbox.transform.localScale.y * transform.localScale.y, 0), Quaternion.identity, transform); }
+                {
+                    critHitbox = Instantiate(attackHitbox, transform.position + new Vector3(0, attackHitbox.transform.localScale.y * transform.localScale.y, 0), Quaternion.identity, transform);
+                    gameObject.GetComponentInChildren<Transform>().localScale = new Vector3(Mathf.Abs(gameObject.GetComponentInChildren<Transform>().localScale.x), gameObject.GetComponentInChildren<Transform>().localScale.y, gameObject.GetComponentInChildren<Transform>().localScale.z);
+                    ChangeAnim("AttackUp");
+                }
                 else if (attckDirection == "Down")
-                { hitbox = Instantiate(attackHitbox, transform.position + new Vector3(0, -attackHitbox.transform.localScale.y * transform.localScale.y, 0), Quaternion.identity, transform); }
+                {
+                    critHitbox = Instantiate(attackHitbox, transform.position + new Vector3(0, -attackHitbox.transform.localScale.y * transform.localScale.y, 0), Quaternion.identity, transform);
+                    gameObject.GetComponentInChildren<Transform>().localScale = new Vector3(Mathf.Abs(gameObject.GetComponentInChildren<Transform>().localScale.x), gameObject.GetComponentInChildren<Transform>().localScale.y, gameObject.GetComponentInChildren<Transform>().localScale.z);
+                    ChangeAnim("AttackDown");
+                }
                 if (attckDirection == "Right")
-                { hitbox = Instantiate(attackHitbox, transform.position + new Vector3(attackHitbox.transform.localScale.x * transform.localScale.y, 0, 0), Quaternion.identity, transform); }
+                {
+                    critHitbox = Instantiate(attackHitbox, transform.position + new Vector3(attackHitbox.transform.localScale.x * transform.localScale.y, 0, 0), Quaternion.identity, transform);
+                    ChangeAnim("AttackRight");
+                    gameObject.GetComponentInChildren<Transform>().localScale = new Vector3(Mathf.Abs(gameObject.GetComponentInChildren<Transform>().localScale.x), gameObject.GetComponentInChildren<Transform>().localScale.y, gameObject.GetComponentInChildren<Transform>().localScale.z);
+                }
                 else if (attckDirection == "Left")
-                { hitbox = Instantiate(attackHitbox, transform.position + new Vector3(-attackHitbox.transform.localScale.x * transform.localScale.y, 0, 0), Quaternion.identity, transform); }
+                {
+                    critHitbox = Instantiate(attackHitbox, transform.position + new Vector3(-attackHitbox.transform.localScale.x * transform.localScale.y, 0, 0), Quaternion.identity, transform);
+                    gameObject.GetComponentInChildren<Transform>().localScale = new Vector3(-Mathf.Abs(gameObject.GetComponentInChildren<Transform>().localScale.x), gameObject.GetComponentInChildren<Transform>().localScale.y, gameObject.GetComponentInChildren<Transform>().localScale.z);
+                    ChangeAnim("AttackRight");
+                }
             }
 
         }
@@ -176,13 +191,29 @@ public class EnemyAI : MonoBehaviour
                 isSwinging = true;
 
                 if (attckDirection == "Up")
-                { critHitbox = Instantiate(attackHitbox, transform.position + new Vector3(0, attackHitbox.transform.localScale.y * transform.localScale.y, 0), Quaternion.identity, transform); }
+                { 
+                    critHitbox = Instantiate(attackHitbox, transform.position + new Vector3(0, attackHitbox.transform.localScale.y * transform.localScale.y, 0), Quaternion.identity, transform);
+                    gameObject.GetComponentInChildren<Transform>().localScale = new Vector3(Mathf.Abs(gameObject.GetComponentInChildren<Transform>().localScale.x), gameObject.GetComponentInChildren<Transform>().localScale.y, gameObject.GetComponentInChildren<Transform>().localScale.z);
+                    ChangeAnim("AttackUp");
+                }
                 else if (attckDirection == "Down")
-                { critHitbox = Instantiate(attackHitbox, transform.position + new Vector3(0, -attackHitbox.transform.localScale.y * transform.localScale.y, 0), Quaternion.identity, transform); }
+                { 
+                    critHitbox = Instantiate(attackHitbox, transform.position + new Vector3(0, -attackHitbox.transform.localScale.y * transform.localScale.y, 0), Quaternion.identity, transform);
+                    gameObject.GetComponentInChildren<Transform>().localScale = new Vector3(Mathf.Abs(gameObject.GetComponentInChildren<Transform>().localScale.x), gameObject.GetComponentInChildren<Transform>().localScale.y, gameObject.GetComponentInChildren<Transform>().localScale.z);
+                    ChangeAnim("AttackDown");
+                }
                 if (attckDirection == "Right")
-                { critHitbox = Instantiate(attackHitbox, transform.position + new Vector3(attackHitbox.transform.localScale.x * transform.localScale.y, 0, 0), Quaternion.identity, transform); }
+                { 
+                    critHitbox = Instantiate(attackHitbox, transform.position + new Vector3(attackHitbox.transform.localScale.x * transform.localScale.y, 0, 0), Quaternion.identity, transform);
+                    ChangeAnim("AttackRight");
+                    gameObject.GetComponentInChildren<Transform>().localScale = new Vector3(Mathf.Abs(gameObject.GetComponentInChildren<Transform>().localScale.x), gameObject.GetComponentInChildren<Transform>().localScale.y, gameObject.GetComponentInChildren<Transform>().localScale.z);
+                }
                 else if (attckDirection == "Left")
-                { critHitbox = Instantiate(attackHitbox, transform.position + new Vector3(-attackHitbox.transform.localScale.x * transform.localScale.y, 0, 0), Quaternion.identity, transform); }
+                { 
+                    critHitbox = Instantiate(attackHitbox, transform.position + new Vector3(-attackHitbox.transform.localScale.x * transform.localScale.y, 0, 0), Quaternion.identity, transform);
+                    gameObject.GetComponentInChildren<Transform>().localScale = new Vector3(-Mathf.Abs(gameObject.GetComponentInChildren<Transform>().localScale.x), gameObject.GetComponentInChildren<Transform>().localScale.y, gameObject.GetComponentInChildren<Transform>().localScale.z);
+                    ChangeAnim("AttackRight");
+                }
                 critHitbox.GetComponent<SpriteRenderer>().color = new Color(255f / 255f, 156f / 255f, 0f / 255f, .5f);
                 critHitbox.GetComponent<DamagePlayer>().damage *= 2;
                 //CritFX HERE
