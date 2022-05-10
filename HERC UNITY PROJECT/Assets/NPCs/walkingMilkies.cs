@@ -20,6 +20,9 @@ public class walkingMilkies : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+
+        /*
         if(moveTime < moveDuration)
         { moveTime += Time.deltaTime; } 
         else
@@ -30,5 +33,7 @@ public class walkingMilkies : MonoBehaviour
         }
 
         rb.velocity = moveDir;
+        */
+
     }
 }

@@ -49,6 +49,9 @@ public class EnemyAI : MonoBehaviour
     Vector2 moveDirection;
     float distanceFromPlayer;
     string attckDirection;
+    Animator animator;
+    string currentState;
+
 
     // Start is called before the first frame update
     void Start()
@@ -56,6 +59,7 @@ public class EnemyAI : MonoBehaviour
         player = GameObject.FindWithTag("Player");
         rb = gameObject.GetComponent<Rigidbody2D>();
         sr = gameObject.transform.Find("Sprite").GetComponent<SpriteRenderer>();
+        animator = gameObject.transform.Find("Sprite").GetComponent<Animator>();
         health = setHealth;
         moveSpeed = setMoveSpeed;
         spawnLocation = transform.position;
@@ -74,7 +78,6 @@ public class EnemyAI : MonoBehaviour
             if (moveDirection.x >= 0)
             {
                 gameObject.GetComponentInChildren<Transform>().localScale = new Vector3(1, 1, 1);
-                transform.localScale = new Vector3(1, 1, 1);
             }
             else if (moveDirection.x < 0)
             {
@@ -94,6 +97,19 @@ public class EnemyAI : MonoBehaviour
             {
                 //attckDirection = "Down";
             }
+        }
+
+
+        if (rb.velocity.x > 0)
+        {
+            gameObject.GetComponentInChildren<Transform>().localScale = new Vector3(Mathf.Abs(gameObject.GetComponentInChildren<Transform>().localScale.x), gameObject.GetComponentInChildren<Transform>().localScale.y, gameObject.GetComponentInChildren<Transform>().localScale.z);
+            ChangeAnim("AttackRight");
+        }
+        else if (rb.velocity.x < 0)
+        {
+            gameObject.GetComponentInChildren<Transform>().localScale = new Vector3(-Mathf.Abs(gameObject.GetComponentInChildren<Transform>().localScale.x), gameObject.GetComponentInChildren<Transform>().localScale.y, gameObject.GetComponentInChildren<Transform>().localScale.z);
+            ChangeAnim("AttackRight");
+
         }
 
 
@@ -182,7 +198,10 @@ public class EnemyAI : MonoBehaviour
             Vector3 spawnDirection = (spawnLocation - transform.position).normalized;
             float spawnDistance = (transform.position - spawnLocation).magnitude;
             if (spawnDistance < 1f)
-            { rb.velocity = Vector2.zero; }
+            { 
+                rb.velocity = Vector2.zero;
+                ChangeAnim("Idle");
+            }
             else
             {rb.velocity = spawnDirection * moveSpeed;}
         }
@@ -232,6 +251,15 @@ public class EnemyAI : MonoBehaviour
 
         if (canAttack == true)
         { canAttack = false; }
+    }
+
+    void ChangeAnim(string newState)
+    {
+        if (currentState == newState) return;
+
+        animator.Play(newState);
+
+        currentState = newState;
     }
 
     public void takeDamage()
