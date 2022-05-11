@@ -66,7 +66,7 @@ public class Cutscene : MonoBehaviour
     {
         player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
         player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
-        hearts.active = true;
+        hearts.SetActive(true);
         bossCode.enabled = true;
         Object.Destroy(GameObject.Find("TopBar"),0);
         Object.Destroy(GameObject.Find("BotBar"), 0);

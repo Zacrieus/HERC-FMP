@@ -28,6 +28,8 @@ public class BossAI : MonoBehaviour
     [SerializeField] [Range(0, 10)] float critCD;
 
     [Header("Setup")]
+    [SerializeField] Sprite charge;
+    [SerializeField] Sprite idle;
     Vector3 newPos;
     bool isCrit;
     GameObject smoke;
@@ -80,8 +82,9 @@ public class BossAI : MonoBehaviour
             if (rb.velocity == Vector2.zero)
             { attackTimer += Time.deltaTime; }
 
-            if (attackTimer >= attackWindUp - .75f && Indicate == false)
+            if (Indicate == false)
             {
+                sr.sprite = charge;
                 Indicate = true;
                 smoke = Instantiate(smokeFX, transform.position + new Vector3(0, -2, 0), Quaternion.identity);
                 smoke.transform.parent = transform;
@@ -94,6 +97,7 @@ public class BossAI : MonoBehaviour
                 {
                     rangeAttack();
                     hasShot = true;
+                    sr.sprite = idle;
                 }
             }
 
@@ -104,15 +108,16 @@ public class BossAI : MonoBehaviour
         {
             if (rb.velocity == Vector2.zero) 
             { attackTimer += Time.deltaTime; }
-            if (attackTimer >= critkWindUp - .75f && Indicate == false)
+            if (Indicate == false)
             {
+                sr.sprite = charge;
                 Indicate = true;
                 smoke = Instantiate(smokeFX, transform.position + new Vector3(0, -2, 0), Quaternion.identity);
                 smoke.transform.parent = transform;
                 Object.Destroy(smoke, .7f);
                 critTri = Instantiate(critFX, transform.position + new Vector3(0, +2, 0), Quaternion.identity);
                 critTri.transform.parent = transform;
-                Object.Destroy(critTri, .75f);
+                Object.Destroy(critTri, critkWindUp - .75f);
             }
 
             if (attackTimer >= critkWindUp )
@@ -121,6 +126,7 @@ public class BossAI : MonoBehaviour
                 {
                     CritAttack();
                     hasShot = true;
+                    sr.sprite = idle;
                 }
             }
 
@@ -135,7 +141,7 @@ public class BossAI : MonoBehaviour
 
     public void takeDamage()
     {
-        health -= 1;
+        health -= .5f;
         StartCoroutine(onHurt());
         if (health <= 0)
         {
