@@ -26,6 +26,18 @@ public class BossHealth : MonoBehaviour
         numOfHearts = health;
         for (int i = 0; i < hearts.Length; i++) //for i,v in pairs hearts.length
         {
+            if (i < health)
+            {
+                hearts[i].sprite = fullHeart;
+            }
+            else
+            {
+                if (hearts[i].sprite != halfHeart)
+                {
+                    hearts[i].sprite = EmptyHeart;
+                }
+            }
+
 
 
             //Health Bars
@@ -37,6 +49,12 @@ public class BossHealth : MonoBehaviour
             {
                 hearts[i].enabled = false;
             }
+        }
+
+        if (Mathf.Floor(health) < health)
+        {
+            int heartsnumber = (int)Mathf.Floor(health);
+            hearts[heartsnumber].sprite = halfHeart;
         }
     }
 }
