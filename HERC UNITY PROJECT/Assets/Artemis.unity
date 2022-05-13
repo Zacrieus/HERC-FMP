@@ -318,6 +318,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f62085c4ad5ec54795e913c2552d321, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hearts: {fileID: 926916457}
+  artemisHearts: {fileID: 1738468069273710853}
   aretmisText1: '"If it Isnt the Great Hercules"'
   aretmisText2: '"The prodigal son of Zeus"'
   HercText1: '"I am here on a task to complete 12 labours"'
@@ -425,6 +427,11 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &926916457 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8205967570008961661, guid: d7e4e0b67af328c4e9a9ea47312cc8b1, type: 3}
+  m_PrefabInstance: {fileID: 1087018955}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1051454081
 GameObject:
   m_ObjectHideFlags: 0
@@ -466,7 +473,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1051454081}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e3de0836391f194aa854d33d253a161, type: 3}
   m_Name: 
@@ -695,7 +702,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1250199996}
   - component: {fileID: 1250199997}
-  - component: {fileID: 1250199998}
   m_Layer: 0
   m_Name: Enemies
   m_TagString: Untagged
@@ -737,18 +743,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1250199998
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1250199995}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b2a73b7f4610994892640bdc87e642b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1461162111
 GameObject:
   m_ObjectHideFlags: 0
@@ -1178,9 +1172,9 @@ MonoBehaviour:
   - {fileID: 7620428638176822511}
   - {fileID: 7620428639115473626}
   - {fileID: 7620428638153668081}
-  fullHeart: {fileID: 21300000, guid: c3bb9db5a5969904591ce50e57c1e9ee, type: 3}
-  halfHeart: {fileID: 21300000, guid: cf4c00f0a42f2ff459ec0aca400e892a, type: 3}
-  EmptyHeart: {fileID: 21300000, guid: cf4c00f0a42f2ff459ec0aca400e892a, type: 3}
+  fullHeart: {fileID: 21300000, guid: 2c7bfbf405dc2c34abf36af581a7c146, type: 3}
+  halfHeart: {fileID: 21300000, guid: db29dd5d566a4f940a342af5496de225, type: 3}
+  EmptyHeart: {fileID: 21300000, guid: db29dd5d566a4f940a342af5496de225, type: 3}
 --- !u!222 &1810404058304393646
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1613,7 +1607,7 @@ MonoBehaviour:
   moveSpeed: 0
   lookDirection: 
   setHealth: 5
-  setMoveSpeed: 3
+  setMoveSpeed: 5
   hurtImmunity: 1
   dashCD: 1
   dashSpeed: 5
@@ -1877,7 +1871,7 @@ GameObject:
   - component: {fileID: 6119969020104182061}
   - component: {fileID: 6119969020104182060}
   m_Layer: 5
-  m_Name: BossHealth
+  m_Name: BossHearts
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2021,7 +2015,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c3bb9db5a5969904591ce50e57c1e9ee, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2c7bfbf405dc2c34abf36af581a7c146, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2051,7 +2045,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c3bb9db5a5969904591ce50e57c1e9ee, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2c7bfbf405dc2c34abf36af581a7c146, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2081,7 +2075,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c3bb9db5a5969904591ce50e57c1e9ee, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2c7bfbf405dc2c34abf36af581a7c146, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2111,7 +2105,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c3bb9db5a5969904591ce50e57c1e9ee, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2c7bfbf405dc2c34abf36af581a7c146, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2141,7 +2135,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c3bb9db5a5969904591ce50e57c1e9ee, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2c7bfbf405dc2c34abf36af581a7c146, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2171,7 +2165,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c3bb9db5a5969904591ce50e57c1e9ee, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2c7bfbf405dc2c34abf36af581a7c146, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2201,7 +2195,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c3bb9db5a5969904591ce50e57c1e9ee, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2c7bfbf405dc2c34abf36af581a7c146, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2231,7 +2225,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c3bb9db5a5969904591ce50e57c1e9ee, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2c7bfbf405dc2c34abf36af581a7c146, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2261,7 +2255,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c3bb9db5a5969904591ce50e57c1e9ee, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2c7bfbf405dc2c34abf36af581a7c146, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

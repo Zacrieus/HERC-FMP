@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Cutscene : MonoBehaviour
 {
@@ -11,7 +12,8 @@ public class Cutscene : MonoBehaviour
 
     float textTime = 5f;
     float timer = 0f;
-    GameObject hearts;
+    [SerializeField] GameObject hearts;
+    [SerializeField] GameObject artemisHearts;
 
     int textProgresion = 1;
     [SerializeField] string aretmisText1;
@@ -27,18 +29,27 @@ public class Cutscene : MonoBehaviour
         player = GameObject.Find("Herc");
         boss = GameObject.Find("Boss");
         dialogue = GameObject.Find("Dialogue").GetComponent<Dialogue>();
-        hearts = GameObject.Find("Hearts");
+        //hearts = GameObject.Find("Hearts");
         hearts.active = false;
+        //artemisHearts = GameObject.Find("BossHealth");
+        artemisHearts.active = false;
+        
         player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll; ;
         bossCode = boss.GetComponent<BossAI>();
         bossCode.enabled = false;
-
+        
         dialogue.newText(boss, aretmisText1, textTime, Color.green);
+
+        CutsceneEnd();
+
+        Debug.Log(hearts.active);
+        Debug.Log(hearts.GetComponentInChildren<Image>().IsActive());
     }
 
     // Update is called once per frame
     void Update()
     {
+        /*
         if (timer < textTime && textProgresion < 7)
         { timer += Time.deltaTime; }
         else if (textProgresion < 7)
@@ -60,14 +71,17 @@ public class Cutscene : MonoBehaviour
             { CutsceneEnd(); }
 
         }
+        */
     }
 
     void CutsceneEnd()
     {
         player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
         player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
-        hearts.SetActive(true);
         bossCode.enabled = true;
+        hearts.active = true;
+        artemisHearts.active = true;
+
         Object.Destroy(GameObject.Find("TopBar"),0);
         Object.Destroy(GameObject.Find("BotBar"), 0);
     }

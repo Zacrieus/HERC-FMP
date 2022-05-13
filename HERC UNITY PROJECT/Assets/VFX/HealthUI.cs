@@ -16,15 +16,28 @@ public class healthUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        health = GameObject.Find("Herc").GetComponent<Character>().health;
     }
 
     // Update is called once per frame
     void Update()
     {
         health = GameObject.Find("Herc").GetComponent<Character>().health;
+        numOfHearts = health;
         for (int i = 0; i < hearts.Length; i++) //for i,v in pairs hearts.length
         {
+            if (i < health)
+            {
+                hearts[i].sprite = fullHeart;
+            }
+            else
+            {
+                if (hearts[i].sprite != halfHeart)
+                {
+                    hearts[i].sprite = EmptyHeart;
+                }
+            }
+
 
 
             //Health Bars
@@ -36,6 +49,12 @@ public class healthUI : MonoBehaviour
             {
                 hearts[i].enabled = false;
             }
+        }
+
+        if (Mathf.Floor(health) < health)
+        {
+            int heartsnumber = (int)Mathf.Floor(health);
+            hearts[heartsnumber].sprite = halfHeart;
         }
     }
 }
