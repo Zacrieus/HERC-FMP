@@ -341,7 +341,7 @@ MonoBehaviour:
   dashSpeed: 5
   dashDuration: 0.125
   attackCD: 0.75
-  attackUpTime: 0.05
+  attackUpTime: 0.025
   attackDamage: 1
   isMoving: 0
   moveVector: {x: 0, y: 0}

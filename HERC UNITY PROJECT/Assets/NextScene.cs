@@ -42,7 +42,8 @@ public class NextScene : MonoBehaviour
     */
     public void loadScene()
     {
-        SceneManager.LoadScene(nextScene);
+        if (GameObject.Find("Enemies").transform.childCount == 0)
+        { SceneManager.LoadScene(nextScene); }
 
         /*
         Scene currentScene = SceneManager.GetActiveScene();

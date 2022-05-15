@@ -27,6 +27,10 @@ public class playerAttack : MonoBehaviour
                 col.transform.GetComponent<EnemyAI>().takeDamage();
                 //Object.Destroy(gameObject, 0);
             }
+            if (col.transform.tag == "MiniBoss")
+            {
+                col.transform.GetComponent<hind>().takeDamage();
+            }
             if (col.transform.tag == "Boss")
             {
                 col.transform.GetComponent<BossAI>().takeDamage();

@@ -8,6 +8,7 @@ TagManager:
   - PlayerAttack
   - Boss
   - Objective
+  - MiniBoss
   layers:
   - Default
   - TransparentFX

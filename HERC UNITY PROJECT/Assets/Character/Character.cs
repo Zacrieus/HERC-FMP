@@ -29,6 +29,7 @@ public class Character : MonoBehaviour
     [SerializeField] [Range(0, 5)] float attackDamage;
     float attackTimer;
     bool canAttack = true;
+    bool animate = true;
     //public bool PriortizeVerticalOverHorizontal;
 
     [Header("Setup (IGNORE)")]
@@ -42,6 +43,7 @@ public class Character : MonoBehaviour
     SpriteRenderer sr;
     Rigidbody2D rb;
     GameObject hitbox;
+    public Vector3 spawnLocation;
 
     // Start is called before the first frame update
     void Start()
@@ -54,6 +56,7 @@ public class Character : MonoBehaviour
         health = setHealth;
         Scene currentScene = SceneManager.GetActiveScene();
         string sceneName = currentScene.name;
+        spawnLocation = transform.position;
 
         if (sceneName == "The Cattle")
         { GameObject.Find("Dialogue").GetComponent<Dialogue>().newText(gameObject,"Time to become a hero. First step, The Cattle.",3f,Color.yellow); }
@@ -96,13 +99,16 @@ public class Character : MonoBehaviour
 
         //ismoving
         if (Mathf.Abs(Input.GetAxisRaw("Horizontal"))  + Mathf.Abs(Input.GetAxisRaw("Vertical")) != 0)
-        { isMoving = true; }
+        {   
+            isMoving = true;
+        }
         else
         { isMoving = false; }
 
         //Animations
-        if ( canAttack == true)
-        { directionAnims(); }
+        directionAnims();
+        //if ( animate = true)
+        //{ directionAnims(); }
 
         //Attacking
         if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
@@ -131,9 +137,9 @@ public class Character : MonoBehaviour
                     hitbox = Instantiate(slashHitbox, transform.position + new Vector3(-slashHitbox.transform.localScale.x * transform.localScale.y, 0, 0), Quaternion.identity,transform);
                     ChangeAnim("RightAttack");
                 }
-
-                //hitbox.transform.lo
                 canAttack = false;
+                animate = false;
+                //rb.constraints = RigidbodyConstraints2D.FreezeAll;
             }
         }
         if (canAttack == false)
@@ -145,8 +151,12 @@ public class Character : MonoBehaviour
                 attackTimer = 0f;
             }
             if (attackTimer > attackUpTime)
-            { 
+            {
                 Object.Destroy(hitbox, 0);
+                animate = true;
+                //rb.constraints = RigidbodyConstraints2D.None;
+                //rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+                animate = true;
             }
         }
 
@@ -186,7 +196,7 @@ public class Character : MonoBehaviour
         rb.velocity = moveVector * moveSpeed;
     }
 
-    void ChangeAnim(string newState)
+    public void ChangeAnim(string newState)
     {
         if (currentState == newState) return;
 
@@ -211,7 +221,7 @@ public class Character : MonoBehaviour
 
     void directionAnims()
     {
-        if (isMoving == true && canAttack == true)
+        if (isMoving == true && animate == true)
         {
             if (lookDirection == "Right")
             {
@@ -235,7 +245,7 @@ public class Character : MonoBehaviour
             }
 
         }
-        else if (isMoving == false && canAttack == true)
+        else if (isMoving == false && animate == true)
         {
             if (lookDirection == "Right")
             {
