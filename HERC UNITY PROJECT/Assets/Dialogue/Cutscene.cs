@@ -40,7 +40,7 @@ public class Cutscene : MonoBehaviour
         
         dialogue.newText(boss, aretmisText1, textTime, Color.green);
 
-        CutsceneEnd();
+        //CutsceneEnd();
 
         Debug.Log(hearts.active);
         Debug.Log(hearts.GetComponentInChildren<Image>().IsActive());
@@ -49,7 +49,7 @@ public class Cutscene : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*
+        //
         if (timer < textTime && textProgresion < 7)
         { timer += Time.deltaTime; }
         else if (textProgresion < 7)
@@ -71,7 +71,7 @@ public class Cutscene : MonoBehaviour
             { CutsceneEnd(); }
 
         }
-        */
+        //*/
     }
 
     void CutsceneEnd()
