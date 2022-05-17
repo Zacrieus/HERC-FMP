@@ -51,6 +51,8 @@ public class EnemyAI : MonoBehaviour
     string attckDirection;
     Animator animator;
     string currentState;
+    [SerializeField] AudioSource hit;
+    [SerializeField] AudioSource hurt;
 
 
     // Start is called before the first frame update
@@ -189,7 +191,7 @@ public class EnemyAI : MonoBehaviour
                 //Debug.Log("hi");
                 //attackStart
                 isSwinging = true;
-
+                hit.Play();
                 if (attckDirection == "Up")
                 { 
                     critHitbox = Instantiate(attackHitbox, transform.position + new Vector3(0, attackHitbox.transform.localScale.y * transform.localScale.y, 0), Quaternion.identity, transform);
@@ -249,7 +251,6 @@ public class EnemyAI : MonoBehaviour
     void attack()
     {
         //Debug.Log(moveDirection);
-
         if (Mathf.Abs(moveDirection.x) >= Mathf.Abs(moveDirection.y))
         {
             //Is Left or Right
@@ -294,14 +295,15 @@ public class EnemyAI : MonoBehaviour
     }
 
     public void takeDamage()
-    { 
-            health -= 1;
-            StartCoroutine(onHurt());
-            if (health <= 0)
-            {
-                //Death
-                Object.Destroy(gameObject, 0);
-            }
+    {
+        hurt.Play();
+        health -= 1;
+        StartCoroutine(onHurt());
+        if (health <= 0)
+        {
+            //Death
+            Object.Destroy(gameObject, 0);
+        }
     }
 
     IEnumerator onHurt()

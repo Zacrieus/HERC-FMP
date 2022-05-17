@@ -44,6 +44,9 @@ public class Character : MonoBehaviour
     Rigidbody2D rb;
     GameObject hitbox;
     public Vector3 spawnLocation;
+    [SerializeField] AudioSource hit;
+    [SerializeField] AudioSource hurt;
+    [SerializeField] AudioSource footsteps;
 
     // Start is called before the first frame update
     void Start()
@@ -62,23 +65,14 @@ public class Character : MonoBehaviour
         { GameObject.Find("Dialogue").GetComponent<Dialogue>().newText(gameObject,"Time to become a hero. First step, The Cattle.",3f,Color.yellow); }
         if (sceneName == "The Belt")
         { GameObject.Find("Dialogue").GetComponent<Dialogue>().newText(gameObject,"That wasnt so bad. lets go find The Belt now.",3f,Color.yellow); }
+        if (sceneName == "The Hind")
+        { GameObject.Find("Dialogue").GetComponent<Dialogue>().newText(gameObject, "This Animal its Artemis' Hind", 3f, Color.yellow); }
 
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        //animator.SetBool("isMoving", isMoving);
-        //animator.SetInteger("Direction", lookDirection);
-
-        /*
-        moveVector = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        moveVector = moveVector.normalized;
-        rb.velocity = moveVector * moveSpeed;
-        */
-
-        //LookDirection 1 = Up/W    2=Down/S      3=Left/A      4=Right/D
         
         if (Input.GetAxisRaw("Horizontal") > 0)
         { 
@@ -101,9 +95,14 @@ public class Character : MonoBehaviour
         if (Mathf.Abs(Input.GetAxisRaw("Horizontal"))  + Mathf.Abs(Input.GetAxisRaw("Vertical")) != 0)
         {   
             isMoving = true;
+            footsteps.Play();
         }
         else
-        { isMoving = false; }
+        { 
+            isMoving = false;  
+            //footsteps.time = 0f; 
+            footsteps.Stop();
+        }
 
         //Animations
         directionAnims();
@@ -139,6 +138,7 @@ public class Character : MonoBehaviour
                 }
                 canAttack = false;
                 animate = false;
+                hit.Play();
                 //rb.constraints = RigidbodyConstraints2D.FreezeAll;
             }
         }
@@ -207,9 +207,9 @@ public class Character : MonoBehaviour
 
     public void takeDamage(float amount)
     {
-        //Debug.Log("Take Damage");
         if (immune == false)
         {
+            hurt.Play();
             health -= amount;
             StartCoroutine(onHurt());
             GameObject.Find("Hearts").GetComponent<HealthUI>().heartsChange();
@@ -288,8 +288,4 @@ public class Character : MonoBehaviour
         gameObject.tag = "Player";
         immune = false;
     }
-
-    //sending variables
-    public bool IsMoving()
-    {return isMoving;}
 }
