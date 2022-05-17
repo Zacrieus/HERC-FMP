@@ -96,7 +96,7 @@ public class Character : MonoBehaviour
         if (Mathf.Abs(Input.GetAxisRaw("Horizontal"))  + Mathf.Abs(Input.GetAxisRaw("Vertical")) != 0)
         {   
             isMoving = true;
-            footsteps.volume = 1;
+            footsteps.volume = .5f;
         }
         else
         { 

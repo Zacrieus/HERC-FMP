@@ -445,6 +445,7 @@ GameObject:
   - component: {fileID: 1051454083}
   - component: {fileID: 1051454085}
   - component: {fileID: 1051454086}
+  - component: {fileID: 1051454087}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Boss
@@ -591,6 +592,22 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.14, y: 0.43}
   m_EdgeRadius: 0
+--- !u!114 &1051454087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1051454081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11b12a47d40a7784b8ec27417ee4e604, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 5
+  noOfCounters: 5
+  exhaust: 0
+  arrow: {fileID: 5672847798747996758, guid: 15411ee4a058253458d091e32544df4f, type: 3}
 --- !u!1001 &1087018955
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1079,9 +1096,9 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: d376042fd0ceb464881328e895d862f4, type: 3}
-  m_PlayOnAwake: 1
-  m_Volume: 1
-  m_Pitch: 0.5
+  m_PlayOnAwake: 0
+  m_Volume: 0.5
+  m_Pitch: 1
   Loop: 0
   Mute: 0
   Spatialize: 0
@@ -1176,7 +1193,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: e5b0d56344fef0044a17c71d2c492364, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1272,7 +1289,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: a080366211dcd514fa926ef9f823410f, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 1
   Mute: 0
