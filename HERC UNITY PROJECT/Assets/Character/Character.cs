@@ -68,6 +68,7 @@ public class Character : MonoBehaviour
         if (sceneName == "The Hind")
         { GameObject.Find("Dialogue").GetComponent<Dialogue>().newText(gameObject, "This Animal its Artemis' Hind", 3f, Color.yellow); }
 
+        footsteps.Play();
     }
 
     // Update is called once per frame
@@ -95,13 +96,13 @@ public class Character : MonoBehaviour
         if (Mathf.Abs(Input.GetAxisRaw("Horizontal"))  + Mathf.Abs(Input.GetAxisRaw("Vertical")) != 0)
         {   
             isMoving = true;
-            footsteps.Play();
+            footsteps.volume = 1;
         }
         else
         { 
-            isMoving = false;  
+            isMoving = false;
             //footsteps.time = 0f; 
-            footsteps.Stop();
+            footsteps.volume = 0;
         }
 
         //Animations
