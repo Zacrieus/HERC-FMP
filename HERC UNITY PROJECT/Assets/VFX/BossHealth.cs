@@ -16,13 +16,13 @@ public class BossHealth : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        numOfHearts = GameObject.Find("Boss").GetComponent<BossAI>().health;
+        numOfHearts = GameObject.Find("Boss").GetComponent<Boss>().health;
     }
 
     // Update is called once per frame
     void Update()
     {
-        health = GameObject.Find("Boss").GetComponent<BossAI>().health;
+        health = GameObject.Find("Boss").GetComponent<Boss>().health;
         numOfHearts = health;
         for (int i = 0; i < hearts.Length; i++) //for i,v in pairs hearts.length
         {

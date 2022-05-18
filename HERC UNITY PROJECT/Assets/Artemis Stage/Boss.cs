@@ -5,7 +5,7 @@ using UnityEngine;
 public class Boss : MonoBehaviour
 {
     GameObject player;
-    [SerializeField] float health;
+    public float health;
     SpriteRenderer sr;
     [SerializeField][Range(1,5)] int noOfCounters;
     [SerializeField] float exhaust;
@@ -17,7 +17,10 @@ public class Boss : MonoBehaviour
     bool hasAttacked = true;
     float rng;
 
+    SpriteRenderer glow;
+
     [SerializeField] GameObject arrow;
+    [SerializeField] AudioSource arrowSound;
 
     Vector2 playerDirection;
     Vector3 newPos;
@@ -28,14 +31,17 @@ public class Boss : MonoBehaviour
     { 
         sr = gameObject.GetComponent<SpriteRenderer>();
         player = GameObject.FindWithTag("Player");
+        glow = GameObject.Find("Glow").GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        glow.sprite = sr.sprite;
         if (attackCounter < noOfCounters)
         {
-
+            gameObject.tag = "Untagged";
+            glow.color = new Color (1,1,1,1);
             if (hasAttacked == true)
             { rng = Mathf.Floor(Random.Range(1f, 3f)); hasAttacked = false; }
 
@@ -47,7 +53,6 @@ public class Boss : MonoBehaviour
                 { attackTimer += Time.deltaTime; }
                 else
                 {
-                    Debug.Log("Attack");
                     rangeAttack();
                     attackCounter += 1;
                     hasAttacked = true;
@@ -61,7 +66,6 @@ public class Boss : MonoBehaviour
                 { attackTimer += Time.deltaTime; }
                 else
                 {
-                    Debug.Log("Shotgun");
                     shotgunAttack();
                     attackCounter += 1;
                     hasAttacked = true;
@@ -85,14 +89,15 @@ public class Boss : MonoBehaviour
         }
         else if(attackCounter >= noOfCounters)
         {
-            Debug.Log(attackCounter);
-            attackCounter = 0;
+            glow.color = new Color(1, 1, 1, 0);
+            gameObject.tag = "Boss";
         }
     }
 
     void rangeAttack()
     {
         //Debug.Log("Pew");
+        
         hitbox = Instantiate(arrow, transform.position, Quaternion.identity);
         rotateTo2D(hitbox, player.transform.position);
         playerDirection = (player.transform.position - transform.position).normalized;
@@ -131,6 +136,7 @@ public class Boss : MonoBehaviour
     {
         health -= .5f;
         StartCoroutine(onHurt());
+        attackCounter = 0;
         if (health <= 0)
         {
             //GameObject.Find("Enemies").GetComponent<task>().onEventCheck();
@@ -140,6 +146,7 @@ public class Boss : MonoBehaviour
 
     IEnumerator onHurt()
     {
+        Debug.Log("Hurt");
         sr.color = Color.red;
         yield return new WaitForSeconds(1);
         sr.color = Color.white;

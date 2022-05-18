@@ -7,7 +7,7 @@ public class Cutscene : MonoBehaviour
 {
     GameObject player;
     GameObject boss;
-    BossAI bossCode;
+    Boss bossCode;
     Dialogue dialogue;
 
     float textTime = 5f;
@@ -35,12 +35,12 @@ public class Cutscene : MonoBehaviour
         artemisHearts.active = false;
         
         player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll; ;
-        bossCode = boss.GetComponent<BossAI>();
+        bossCode = boss.GetComponent<Boss>();
         bossCode.enabled = false;
         
         dialogue.newText(boss, aretmisText1, textTime, Color.green);
 
-        CutsceneEnd();
+        //CutsceneEnd();
 
         //Debug.Log(hearts.active);
         //Debug.Log(hearts.GetComponentInChildren<Image>().IsActive());
@@ -49,7 +49,7 @@ public class Cutscene : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*
+        
         if (timer < textTime && textProgresion < 7)
         { timer += Time.deltaTime; }
         else if (textProgresion < 7)
@@ -78,7 +78,7 @@ public class Cutscene : MonoBehaviour
     {
         player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
         player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
-        //bossCode.enabled = true;
+        bossCode.enabled = true;
         hearts.active = true;
         artemisHearts.active = true;
 

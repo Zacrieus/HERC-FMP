@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/The Belt.unity
     guid: 318e338554f4f6947b6bd51640b03a8d
   - enabled: 1
+    path: Assets/The Hind.unity
+    guid: 640a132b1603ceb448b8520a27ee8798
+  - enabled: 1
     path: Assets/Artemis.unity
     guid: 5cb7ac16a5c9b724484f697f350007b7
   m_configObjects: {}

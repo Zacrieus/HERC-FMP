@@ -47,6 +47,7 @@ public class Character : MonoBehaviour
     [SerializeField] AudioSource hit;
     [SerializeField] AudioSource hurt;
     [SerializeField] AudioSource footsteps;
+    [SerializeField] AudioSource dashSound;
 
     // Start is called before the first frame update
     void Start()
@@ -169,6 +170,8 @@ public class Character : MonoBehaviour
                 //Debug.Log("Dash");
                 canDash = false;
                 moveSpeed *= dashSpeed;
+                dashSound.time = 0f;
+                dashSound.Play();
                 StartCoroutine(iFrames());
             }
         }
