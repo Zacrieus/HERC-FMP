@@ -22,8 +22,7 @@ public class Dialogue : MonoBehaviour
     {
         // new
         GameObject newText = Instantiate(Text,charater.transform.position,Quaternion.identity);
-        //newText.transform.SetParent(charater.transform);  //flips
-        //newText.GetComponent<TextPositiion>().follow = charater;
+        newText.name = "Text";
 
         newText.GetComponent<TMPro.TextMeshPro>().text = dialogueText;
         newText.GetComponent<TMPro.TextMeshPro>().color = col;

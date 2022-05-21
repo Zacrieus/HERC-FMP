@@ -33,7 +33,8 @@ public class Cutscene : MonoBehaviour
         hearts.active = false;
         //artemisHearts = GameObject.Find("BossHealth");
         artemisHearts.active = false;
-        
+
+        player.GetComponent<Character>().enabled = false;
         player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll; ;
         bossCode = boss.GetComponent<Boss>();
         bossCode.enabled = false;
@@ -49,7 +50,16 @@ public class Cutscene : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
+        if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
+        {
+            if (textProgresion < 7)
+            {
+                timer = textTime;
+                Destroy(GameObject.Find("Text"));
+            }
+        }
+
         if (timer < textTime && textProgresion < 7)
         { timer += Time.deltaTime; }
         else if (textProgresion < 7)
@@ -60,9 +70,9 @@ public class Cutscene : MonoBehaviour
             if (textProgresion == 2)
             { dialogue.newText(boss, aretmisText2, textTime, Color.green); }
             else if (textProgresion == 3)
-            { dialogue.newText(player, HercText1, textTime, Color.yellow); }
+            { dialogue.newText(player, HercText1, textTime, new Color(1, .4f, 0)); }
             else if (textProgresion == 4)
-            { dialogue.newText(player, HercText2, textTime, Color.yellow); }
+            { dialogue.newText(player, HercText2, textTime, new Color(1, .4f, 0)); }
             else if (textProgresion == 5)
             { dialogue.newText(boss, aretmisText3, textTime, Color.green); }
             else if (textProgresion == 6)
@@ -78,6 +88,7 @@ public class Cutscene : MonoBehaviour
     {
         player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
         player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
+        player.GetComponent<Character>().enabled = true;
         bossCode.enabled = true;
         hearts.active = true;
         artemisHearts.active = true;

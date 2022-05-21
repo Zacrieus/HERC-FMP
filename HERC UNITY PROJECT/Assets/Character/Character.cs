@@ -63,11 +63,11 @@ public class Character : MonoBehaviour
         spawnLocation = transform.position;
 
         if (sceneName == "The Cattle")
-        { GameObject.Find("Dialogue").GetComponent<Dialogue>().newText(gameObject,"Time to become a hero. First step, The Cattle.",3f,Color.yellow); }
+        { GameObject.Find("Dialogue").GetComponent<Dialogue>().newText(gameObject,"Time to become a hero. First step, The Cattle.",4f, new Color(1, .4f, 0)); }
         if (sceneName == "The Belt")
-        { GameObject.Find("Dialogue").GetComponent<Dialogue>().newText(gameObject,"That wasnt so bad. lets go find The Belt now.",3f,Color.yellow); }
+        { GameObject.Find("Dialogue").GetComponent<Dialogue>().newText(gameObject,"That wasnt so bad. lets go find The Belt now.",4f, new Color(1, .4f, 0)); }
         if (sceneName == "The Hind")
-        { GameObject.Find("Dialogue").GetComponent<Dialogue>().newText(gameObject, "This Animal its Artemis' Hind", 3f, Color.yellow); }
+        { GameObject.Find("Dialogue").GetComponent<Dialogue>().newText(gameObject, "This Animal its Artemis' Hind", 4f, new Color(1, .4f, 0)); }
 
         footsteps.Play();
     }
