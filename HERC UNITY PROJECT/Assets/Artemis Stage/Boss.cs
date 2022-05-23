@@ -16,8 +16,9 @@ public class Boss : MonoBehaviour
     float homingCharge = 3;
     bool hasAttacked = true;
     float rng;
+    bool immune;
 
-    SpriteRenderer glow;
+    //SpriteRenderer glow;
 
     [SerializeField] GameObject arrow;
     [SerializeField] AudioSource arrowSound;
@@ -31,17 +32,16 @@ public class Boss : MonoBehaviour
     { 
         sr = gameObject.GetComponent<SpriteRenderer>();
         player = GameObject.FindWithTag("Player");
-        glow = GameObject.Find("Glow").GetComponent<SpriteRenderer>();
+        //glow = GameObject.Find("Glow").GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        glow.sprite = sr.sprite;
         if (attackCounter < noOfCounters)
         {
             gameObject.tag = "Untagged";
-            glow.color = new Color (1,1,1,1);
+            immune = true;
             if (hasAttacked == true)
             { rng = Mathf.Floor(Random.Range(1f, 3f)); hasAttacked = false; }
 
@@ -89,7 +89,7 @@ public class Boss : MonoBehaviour
         }
         else if(attackCounter >= noOfCounters)
         {
-            glow.color = new Color(1, 1, 1, 0);
+            immune = false;
             gameObject.tag = "Boss";
         }
     }
@@ -134,14 +134,23 @@ public class Boss : MonoBehaviour
 
     public void takeDamage()
     {
-        health -= .5f;
-        StartCoroutine(onHurt());
-        attackCounter = 0;
-        if (health <= 0)
+        if (immune == false)
         {
-            //GameObject.Find("Enemies").GetComponent<task>().onEventCheck();
-            Object.Destroy(gameObject, 0);
+            health -= .5f;
+            StartCoroutine(onHurt());
+            attackCounter = 0;
+            if (health <= 0)
+            {
+                //GameObject.Find("Enemies").GetComponent<task>().onEventCheck();
+                Object.Destroy(gameObject, 0);
+            }
         }
+        else
+        {
+            //Instantiate(GameObject.F)
+            //PlaySound
+        }
+
     }
 
     IEnumerator onHurt()
