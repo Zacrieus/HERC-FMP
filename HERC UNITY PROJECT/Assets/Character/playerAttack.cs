@@ -33,7 +33,7 @@ public class playerAttack : MonoBehaviour
             }
             if (col.transform.tag == "Boss")
             {
-                col.transform.GetComponent<BossAI>().takeDamage();
+                //col.transform.GetComponent<BossAI>().takeDamage();
                 col.transform.GetComponent<Boss>().takeDamage();
                 //Object.Destroy(gameObject, 0);
             }

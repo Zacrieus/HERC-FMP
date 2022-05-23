@@ -1,7 +1,19 @@
 fileFormatVersion: 2
-guid: e9dd8078fa877b642b55360b1e20cd06
+guid: 0fc6fa2fa38bcfb4e8126eb490fc48a9
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -5783426061537404850
+    second: artemis attack_0
+  - first:
+      213: 4106785850838930608
+    second: artemis attack_1
+  - first:
+      213: 1477445203077235356
+    second: artemis attack_2
+  - first:
+      213: -2982307226688141752
+    second: artemis attack_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -41,7 +53,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -89,7 +101,91 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: artemis attack_0
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 1
+        width: 18
+        height: 43
+      alignment: 9
+      pivot: {x: 0.5673403, y: 0.50000006}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e48935193a42dbfa0800000000000000
+      internalID: -5783426061537404850
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: artemis attack_1
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 1
+        width: 20
+        height: 43
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b4dadff8fb3ef830800000000000000
+      internalID: 4106785850838930608
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: artemis attack_2
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 1
+        width: 20
+        height: 43
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c9206889590f08410800000000000000
+      internalID: 1477445203077235356
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: artemis attack_3
+      rect:
+        serializedVersion: 2
+        x: 291
+        y: 1
+        width: 20
+        height: 43
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8464c26d067bc96d0800000000000000
+      internalID: -2982307226688141752
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []

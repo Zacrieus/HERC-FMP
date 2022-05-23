@@ -1,103 +1,136 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Boss : MonoBehaviour
 {
     GameObject player;
     public float health;
     SpriteRenderer sr;
-    [SerializeField][Range(1,5)] int noOfCounters;
-    [SerializeField] float exhaust;
+    [SerializeField][Range(1,7)] int noOfCounters;
     int attackCounter = 0;
     float attackTimer = 0f;
     float basicCharge = 1;
-    float shotgunCharge = 3;
-    float homingCharge = 3;
+    float shotgunCharge = 1;
     bool hasAttacked = true;
     float rng;
     bool immune;
 
-    //SpriteRenderer glow;
+    Rigidbody2D rb;
+    Animator anim;
+    bool hasCharged;
 
     [SerializeField] GameObject arrow;
     [SerializeField] AudioSource arrowSound;
+    [SerializeField] AudioSource parrySound;
+    [SerializeField] AudioSource hurtSound;
+    [SerializeField] AudioSource footsteps;
+    ParticleSystem particles;
 
     Vector2 playerDirection;
     Vector3 newPos;
     GameObject hitbox;
+
 
     // Start is called before the first frame update
     void Start()
     { 
         sr = gameObject.GetComponent<SpriteRenderer>();
         player = GameObject.FindWithTag("Player");
-        //glow = GameObject.Find("Glow").GetComponent<SpriteRenderer>();
+        rb = gameObject.GetComponent<Rigidbody2D>();
+        newRandomPos();
+        particles = gameObject.GetComponent<ParticleSystem>();
+        anim = gameObject.GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (attackCounter < noOfCounters)
-        {
-            gameObject.tag = "Untagged";
-            immune = true;
-            if (hasAttacked == true)
-            { rng = Mathf.Floor(Random.Range(1f, 3f)); hasAttacked = false; }
 
-            //Debug.Log(rng);
-            if (rng == 1f)
-            {
-                //attack
-                if (attackTimer < basicCharge)
-                { attackTimer += Time.deltaTime; }
-                else
-                {
-                    rangeAttack();
-                    attackCounter += 1;
-                    hasAttacked = true;
-                    attackTimer = 0f;
-                }
-            }
-            else if (rng == 2f)
-            {
-                //Shotgun
-                if (attackTimer < shotgunCharge)
-                { attackTimer += Time.deltaTime; }
-                else
-                {
-                    shotgunAttack();
-                    attackCounter += 1;
-                    hasAttacked = true;
-                    attackTimer = 0f;
-                }
-            }
-            else if (rng == 3f)
-            {
-                //Homing
-                if (attackTimer < homingCharge)
-                { attackTimer += Time.deltaTime; }
-                else
-                {
-                    Debug.Log("Homing");
-                    attackCounter += 1;
-                    hasAttacked = true;
-                    rangeAttack();
-                    attackTimer = 0f;
-                }
-            }
-        }
-        else if(attackCounter >= noOfCounters)
+        if (player.transform.position.x > transform.position.x)
+        { transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z); }
+        else
+        { transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z); }
+
+        if ((transform.position - newPos).magnitude > 1)
         {
-            immune = false;
-            gameObject.tag = "Boss";
+            Vector3 moveDirection = (newPos - transform.position).normalized;
+            rb.velocity = moveDirection * 3;
+            footsteps.volume = 1;
+        }
+        else
+        {
+            footsteps.volume = 0;
+            rb.velocity = Vector2.zero;
+
+            if (attackCounter < noOfCounters)
+            {
+                immune = true;
+                if (hasAttacked == true)
+                { rng = Mathf.Floor(Random.Range(1f, 3f)); hasAttacked = false; }
+
+                //Debug.Log(rng);
+                if (rng == 1f)
+                {
+                    //attack
+                    if (attackTimer < basicCharge)
+                    { 
+                        attackTimer += Time.deltaTime; 
+                        if (hasCharged == false && attackTimer < basicCharge - .5)
+                        {
+                            anim.Play("Artemis attack");
+                            hasCharged = true;
+                        }
+                    }
+                    else
+                    {
+                        rangeAttack();
+                        attackCounter += 1;
+                        hasCharged = false;
+                        hasAttacked = true;
+                        attackTimer = 0f;
+                        anim.Play("Artemis Idle");
+                    }
+                }
+                else if (rng == 2f)
+                {
+                    //Shotgun
+                    if (attackTimer < shotgunCharge)
+                    {
+                        attackTimer += Time.deltaTime;
+                        if (hasCharged == false && attackTimer < shotgunCharge - .5)
+                        {
+                            anim.Play("Artemis attack");
+                            hasCharged = true;
+                        }
+                    }
+                    else
+                    {
+                        shotgunAttack();
+                        attackCounter += 1;
+                        hasCharged = false;
+                        hasAttacked = true;
+                        attackTimer = 0f;
+                        anim.Play("Artemis Idle");
+                    }
+                }
+            }
+            else if (attackCounter >= noOfCounters)
+            {
+                immune = false;
+                if (particles.isPlaying == false)
+                { particles.Play(); }
+            }
+
         }
     }
 
     void rangeAttack()
     {
         //Debug.Log("Pew");
-        
+        arrowSound.time = 0;
+        arrowSound.Play();
         hitbox = Instantiate(arrow, transform.position, Quaternion.identity);
         rotateTo2D(hitbox, player.transform.position);
         playerDirection = (player.transform.position - transform.position).normalized;
@@ -108,6 +141,9 @@ public class Boss : MonoBehaviour
     void shotgunAttack()
     {
         //Debug.Log("Pew");
+
+        arrowSound.time = 0;
+        arrowSound.Play();
         float shotgunAmmount = 5;
         for (int i = 0; i < shotgunAmmount; i++)
         {
@@ -115,7 +151,7 @@ public class Boss : MonoBehaviour
             rotateTo2D(hitbox, player.transform.position);
             float varienceScale = 5;
             Vector3 varience = new Vector3(Random.Range(-varienceScale, varienceScale), Random.Range(-varienceScale, varienceScale),1);
-            Debug.Log(varience);
+            //Debug.Log(varience);
             playerDirection = ((player.transform.position + varience) - transform.position).normalized;
             rotateTo2D(hitbox, player.transform.position + varience);
             hitbox.GetComponent<Rigidbody2D>().AddForce((playerDirection * 500), ForceMode2D.Force);
@@ -136,26 +172,45 @@ public class Boss : MonoBehaviour
     {
         if (immune == false)
         {
+            immune = true;
+            newRandomPos();
+            hurtSound.time = 0;
+            hurtSound.Play();
+            particles.Stop();
             health -= .5f;
             StartCoroutine(onHurt());
             attackCounter = 0;
             if (health <= 0)
             {
-                //GameObject.Find("Enemies").GetComponent<task>().onEventCheck();
-                Object.Destroy(gameObject, 0);
+                StartCoroutine(death());
+                StartCoroutine(changeScene());
             }
         }
         else
         {
-            //Instantiate(GameObject.F)
-            //PlaySound
+            parrySound.time = 0;
+            parrySound.Play(); 
         }
 
     }
 
+    IEnumerator death()
+    {
+        GameObject.Find("Dialogue").GetComponent<Dialogue>().newText(gameObject, "AUGHHH",3,Color.green);
+        yield return new WaitForSeconds(3);
+        GameObject.Find("Dialogue").GetComponent<Dialogue>().newText(gameObject, "I... I Guess you have proven your self Hercules...", 3, Color.green);
+    }
+
+    IEnumerator changeScene()
+    {
+        //
+        yield return new WaitForSeconds(8);
+        SceneManager.LoadScene("Credits");
+    }
+
     IEnumerator onHurt()
     {
-        Debug.Log("Hurt");
+        //Debug.Log("Hurt");
         sr.color = Color.red;
         yield return new WaitForSeconds(1);
         sr.color = Color.white;
