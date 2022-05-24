@@ -31,7 +31,7 @@ public class Boss : MonoBehaviour
     Vector2 playerDirection;
     Vector3 newPos;
     GameObject hitbox;
-
+    bool alive = true;
 
     // Start is called before the first frame update
     void Start()
@@ -41,7 +41,7 @@ public class Boss : MonoBehaviour
         rb = gameObject.GetComponent<Rigidbody2D>();
         newRandomPos();
         particles = gameObject.GetComponent<ParticleSystem>();
-        anim = gameObject.GetComponent<Animator>();
+        anim = gameObject.GetComponent<Animator>();;
     }
 
     // Update is called once per frame
@@ -53,76 +53,79 @@ public class Boss : MonoBehaviour
         else
         { transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z); }
 
-        if ((transform.position - newPos).magnitude > 1)
+        if (alive == true)
         {
-            Vector3 moveDirection = (newPos - transform.position).normalized;
-            rb.velocity = moveDirection * 3;
-            footsteps.volume = 1;
-        }
-        else
-        {
-            footsteps.volume = 0;
-            rb.velocity = Vector2.zero;
 
-            if (attackCounter < noOfCounters)
+            if ((transform.position - newPos).magnitude > 1)
             {
-                immune = true;
-                if (hasAttacked == true)
-                { rng = Mathf.Floor(Random.Range(1f, 3f)); hasAttacked = false; }
+                Vector3 moveDirection = (newPos - transform.position).normalized;
+                rb.velocity = moveDirection * 3;
+                footsteps.volume = 1;
+            }
+            else
+            {
+                footsteps.volume = 0;
+                rb.velocity = Vector2.zero;
 
-                //Debug.Log(rng);
-                if (rng == 1f)
+                if (attackCounter < noOfCounters)
                 {
-                    //attack
-                    if (attackTimer < basicCharge)
-                    { 
-                        attackTimer += Time.deltaTime; 
-                        if (hasCharged == false && attackTimer < basicCharge - .5)
+                    immune = true;
+                    if (hasAttacked == true)
+                    { rng = Mathf.Floor(Random.Range(1f, 3f)); hasAttacked = false; }
+
+                    //Debug.Log(rng);
+                    if (rng == 1f)
+                    {
+                        //attack
+                        if (attackTimer < basicCharge)
                         {
-                            anim.Play("Artemis attack");
-                            hasCharged = true;
+                            attackTimer += Time.deltaTime;
+                            if (hasCharged == false && attackTimer < basicCharge - .5)
+                            {
+                                anim.Play("Artemis attack");
+                                hasCharged = true;
+                            }
+                        }
+                        else
+                        {
+                            rangeAttack();
+                            attackCounter += 1;
+                            hasCharged = false;
+                            hasAttacked = true;
+                            attackTimer = 0f;
+                            anim.Play("Artemis Idle");
                         }
                     }
-                    else
+                    else if (rng == 2f)
                     {
-                        rangeAttack();
-                        attackCounter += 1;
-                        hasCharged = false;
-                        hasAttacked = true;
-                        attackTimer = 0f;
-                        anim.Play("Artemis Idle");
-                    }
-                }
-                else if (rng == 2f)
-                {
-                    //Shotgun
-                    if (attackTimer < shotgunCharge)
-                    {
-                        attackTimer += Time.deltaTime;
-                        if (hasCharged == false && attackTimer < shotgunCharge - .5)
+                        //Shotgun
+                        if (attackTimer < shotgunCharge)
                         {
-                            anim.Play("Artemis attack");
-                            hasCharged = true;
+                            attackTimer += Time.deltaTime;
+                            if (hasCharged == false && attackTimer < shotgunCharge - .5)
+                            {
+                                anim.Play("Artemis attack");
+                                hasCharged = true;
+                            }
+                        }
+                        else
+                        {
+                            shotgunAttack();
+                            attackCounter += 1;
+                            hasCharged = false;
+                            hasAttacked = true;
+                            attackTimer = 0f;
+                            anim.Play("Artemis Idle");
                         }
                     }
-                    else
-                    {
-                        shotgunAttack();
-                        attackCounter += 1;
-                        hasCharged = false;
-                        hasAttacked = true;
-                        attackTimer = 0f;
-                        anim.Play("Artemis Idle");
-                    }
+                }
+                else if (attackCounter >= noOfCounters)
+                {
+                    immune = false;
+                    if (particles.isPlaying == false)
+                    { particles.Play(); }
                 }
             }
-            else if (attackCounter >= noOfCounters)
-            {
-                immune = false;
-                if (particles.isPlaying == false)
-                { particles.Play(); }
-            }
-
         }
     }
 
@@ -182,6 +185,7 @@ public class Boss : MonoBehaviour
             attackCounter = 0;
             if (health <= 0)
             {
+                alive = false;
                 StartCoroutine(death());
                 StartCoroutine(changeScene());
             }
@@ -196,9 +200,10 @@ public class Boss : MonoBehaviour
 
     IEnumerator death()
     {
+        rb.constraints = RigidbodyConstraints2D.FreezeAll;
         GameObject.Find("Dialogue").GetComponent<Dialogue>().newText(gameObject, "AUGHHH",3,Color.green);
         yield return new WaitForSeconds(3);
-        GameObject.Find("Dialogue").GetComponent<Dialogue>().newText(gameObject, "I... I Guess you have proven your self Hercules...", 3, Color.green);
+        GameObject.Find("Dialogue").GetComponent<Dialogue>().newText(gameObject, "I... I Guess you have proven your self Hercules...", 5, Color.green);
     }
 
     IEnumerator changeScene()

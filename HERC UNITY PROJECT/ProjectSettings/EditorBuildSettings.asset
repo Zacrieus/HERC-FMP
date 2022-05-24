@@ -6,6 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Menu.unity
+    guid: 10c26a9c0144055419916f6ca6d1a4a8
+  - enabled: 1
+    path: Assets/Intro.unity
+    guid: 3fd849d1b7f10ad49ab30f30abb9e331
+  - enabled: 1
     path: Assets/The Cattle.unity
     guid: 9196bb50633d81e48b9dab0d0759b6c7
   - enabled: 1
