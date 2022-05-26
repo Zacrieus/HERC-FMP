@@ -216,7 +216,7 @@ public class EnemyAI : MonoBehaviour
                     gameObject.GetComponentInChildren<Transform>().localScale = new Vector3(-Mathf.Abs(gameObject.GetComponentInChildren<Transform>().localScale.x), gameObject.GetComponentInChildren<Transform>().localScale.y, gameObject.GetComponentInChildren<Transform>().localScale.z);
                     ChangeAnim("AttackRight");
                 }
-                critHitbox.GetComponent<SpriteRenderer>().color = new Color(255f / 255f, 156f / 255f, 0f / 255f, .5f);
+                //critHitbox.GetComponent<SpriteRenderer>().color = new Color(255f / 255f, 156f / 255f, 0f / 255f, .5f);
                 critHitbox.GetComponent<DamagePlayer>().damage *= 2;
                 //CritFX HERE
                 //Hit box is crit?

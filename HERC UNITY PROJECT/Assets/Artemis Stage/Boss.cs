@@ -201,6 +201,7 @@ public class Boss : MonoBehaviour
     IEnumerator death()
     {
         rb.constraints = RigidbodyConstraints2D.FreezeAll;
+        anim.Play("Artemis Death");
         GameObject.Find("Dialogue").GetComponent<Dialogue>().newText(gameObject, "AUGHHH",3,Color.green);
         yield return new WaitForSeconds(3);
         GameObject.Find("Dialogue").GetComponent<Dialogue>().newText(gameObject, "I... I Guess you have proven your self Hercules...", 5, Color.green);

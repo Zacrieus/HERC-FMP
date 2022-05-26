@@ -21,7 +21,7 @@ public class Dialogue : MonoBehaviour
     public void newText(GameObject charater, string dialogueText,float duration, Color col)
     {
         // new
-        GameObject newText = Instantiate(Text,charater.transform.position,Quaternion.identity);
+        GameObject newText = Instantiate(Text,charater.transform.position + new Vector3(0,1,0),Quaternion.identity);
         newText.name = "Text";
 
         newText.GetComponent<TMPro.TextMeshPro>().text = dialogueText;

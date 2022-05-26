@@ -20,12 +20,14 @@ public class hind : MonoBehaviour
 
     Animator animator;
     string currentState;
+    AudioSource moo;
 
     void Start()
     {
         sr = gameObject.GetComponent<SpriteRenderer>();
         rb = gameObject.GetComponent<Rigidbody2D>();
         animator = gameObject.GetComponent<Animator>();
+        moo = gameObject.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -85,6 +87,7 @@ public class hind : MonoBehaviour
     public void takeDamage()
     {
         health -= 1;
+        moo.Play();
         StartCoroutine(onHurt());
         if (health <= 0)
         {
